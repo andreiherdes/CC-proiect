@@ -580,6 +580,11 @@ input.input100 {
     position: relative;
 }
 
+.validate-inputReg {
+    position: relative;
+}
+
+
 .alert-validate::before {
     content: attr(data-validate);
     position: absolute;
@@ -657,4 +662,15 @@ input.input100 {
 .footer .footer_details {
     padding-top: 15px;
     color: #000;
+}
+
+.modal-header {
+    border-bottom-color: #EEEEEE;
+    background-color: #064269;
+    color: whitesmoke;
+}
+
+.close span{
+    color: white;
+    opacity: 1;
 }

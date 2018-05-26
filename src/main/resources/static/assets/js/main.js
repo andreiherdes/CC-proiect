@@ -40,9 +40,32 @@
            hideValidate(this);
         });
     });
+    
+//    for register
+    var input = $('.validate-inputReg .input100');
+
+    $('.validate-formReg').on('submit',function(){
+        var check = true;
+
+        for(var i=0; i<input.length; i++) {
+            if(validate(input[i]) == false){
+                showValidate(input[i]);
+                check=false;
+            }
+        }
+
+        return check;
+    });
+
+
+    $('.validate-formReg .input100').each(function(){
+        $(this).focus(function(){
+           hideValidate(this);
+        });
+    });
 
     function validate (input) {
-        if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+        if($(input).attr('type') == 'email' || $(input).attr('name') == 'email' || $(input).attr('name') == '"emailReg"') {
             if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
                 return false;
             }
@@ -53,6 +76,8 @@
             }
         }
     }
+    
+    
 
     function showValidate(input) {
         var thisAlert = $(input).parent();
