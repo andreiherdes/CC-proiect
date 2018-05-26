@@ -50,8 +50,9 @@
 				</div>
 
 				<div class="modal-body">
-					<form class="validate-formReg" th:action="@{/register}"
-						th:object="${register}" method="post">
+					<form class="validate-formReg" action="#"
+						th:action="@{/index/register}" th:object="${register}"
+						method="post">
 
 						<div class="wrap-input100">
 							<input class="input100" type="text" name="register_first_name"
@@ -117,8 +118,8 @@
 		<div class="limiter">
 			<div class="container-login100">
 				<div class="wrap-login100">
-					<form class="login100-form validate-form" action="#"
-						th:action="@{/}" th:object="${login}" method="post">
+					<form class="login100-form validate-form"
+						th:action="@{/index/login}" th:object="${login}" method="post">
 						<span class="login100-form-title p-b-43"> Login to continue
 						</span>
 
@@ -149,19 +150,18 @@
 							</div>
 						</div>
 
-
-
-
 						<div class="container-login100-form-btn">
 							<input class="login100-form-btn" type="submit" name="loginButton"
 								value="Login" />
 						</div>
 
-						<div class="text-center p-t-46 p-b-20">
-							or <a href="#" class="txt1" data-toggle="modal"
-								data-target="#myModal2"> sign up. </a>
-						</div>
+
 					</form>
+
+					<div class="text-center p-t-46 p-b-20">
+						or <a href="#" class="txt1" data-toggle="modal"
+							data-target="#myModal2"> sign up. </a>
+					</div>
 
 					<div class="login100-more"
 						style="background-image: url('images/tow_car.jpg');">

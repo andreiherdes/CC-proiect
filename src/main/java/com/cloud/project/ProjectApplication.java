@@ -18,7 +18,7 @@ public class ProjectApplication {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/test-db")
 	public String hello() throws SQLException {
 		UserDao userDao = new UserDaoImpl();
 		return userDao.getAll().toString();

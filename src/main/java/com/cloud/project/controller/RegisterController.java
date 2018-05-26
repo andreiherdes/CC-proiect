@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.cloud.project.model.Register;
 
 @Controller
-@RequestMapping( "/register" )
+@RequestMapping( "/asdfasa" )
 public class RegisterController {
 	
 	@RequestMapping( method = RequestMethod.GET )
