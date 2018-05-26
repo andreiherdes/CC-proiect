@@ -15,18 +15,12 @@ public class CloudSqlConnection {
 			+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=" + DatabaseCredentials.USERNAME
 			+ "&password=" + DatabaseCredentials.PASSWORD + "&useSSL=false";
 
-	private Connection conn;
-
 	private CloudSqlConnection() {
-		try {
-			conn = DriverManager.getConnection(SQL_URL);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
-	public Connection getConnection() {
-		return conn;
+	public Connection getConnection() throws SQLException {
+		return DriverManager.getConnection(SQL_URL);
 	}
 
 }
