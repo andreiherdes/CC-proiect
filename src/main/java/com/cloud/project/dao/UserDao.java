@@ -7,6 +7,8 @@ import com.cloud.project.model.User;
 
 public interface UserDao {
 	
+	//TODO implement generic DAO
+	
 	User getById(Long id) throws SQLException;
 	
 	List<User> getAll() throws SQLException;
