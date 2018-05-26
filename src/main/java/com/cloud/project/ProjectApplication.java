@@ -13,8 +13,8 @@ public class ProjectApplication {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
 	
-	@GetMapping("/")
-	public String hello() {
-		return "Welcome to my spring boot appengine app!";
-	}
+	// @GetMapping("/")
+	// public String hello() {
+	// 	return "Welcome to my spring boot appengine app!";
+	// }
 }
