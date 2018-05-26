@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cloud.project.dao.UserDao;
 import com.cloud.project.dao.impl.UserDaoImpl;
-import com.cloud.project.database.CloudSqlConnection;
 
 @SpringBootApplication
 @RestController
