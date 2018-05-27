@@ -1,5 +1,8 @@
 package com.cloud.project.controller;
 
+import java.sql.SQLException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,10 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cloud.project.model.Login;
 import com.cloud.project.model.Register;
+import com.cloud.project.model.User;
+import com.cloud.project.service.UserService;
 
 @Controller
 @RequestMapping("/index")
 public class IndexController {
+	
+	@Autowired
+	private UserService userService;
 
 	@ModelAttribute("login")
 	public Login getLoginObject() {
@@ -36,12 +44,28 @@ public class IndexController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerSubmit(@ModelAttribute Register register) {
-		System.out.println(register.getFirstName());
-		System.out.println(register.getLastName());
-		// System.out.println(register.getBirthDate());
-		// System.out.println(register.getEmail());
-		// System.out.println(register.getPassword());
+		User user = new User();
+		
+		user.setEmail(register.getEmailReg());
+		user.setFirstName(register.getFirstName());
+		user.setLastName(register.getLastName());
+		user.setPassword("12345");
+		
+		try {
+			userService.register(user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return "result";
+	}
+	
+	public UserService getUserSerivce() {
+		return userService;
+	}
+
+	public void setUserSerivce(UserService userSerivce) {
+		this.userService = userSerivce;
 	}
 
 }

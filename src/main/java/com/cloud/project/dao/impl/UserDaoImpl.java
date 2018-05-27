@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.cloud.project.dao.CarLicenseDao;
 import com.cloud.project.dao.UserDao;
@@ -15,6 +15,7 @@ import com.cloud.project.database.CloudSqlConnection;
 import com.cloud.project.model.CarLicense;
 import com.cloud.project.model.User;
 
+@Repository
 public class UserDaoImpl implements UserDao {
 
 	private Connection conn;
@@ -77,7 +78,7 @@ public class UserDaoImpl implements UserDao {
 			carDao.persist(car);
 		}
 
-		stmt.executeQuery();
+		stmt.executeUpdate();
 		conn.close();
 
 	}
@@ -115,6 +116,11 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean isUsernameValid(String username) throws SQLException {
+
+		if (username.isEmpty()) {
+			return false;
+		}
+
 		conn = CloudSqlConnection.INSTANCE.getConnection();
 
 		PreparedStatement stmt = conn
