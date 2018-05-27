@@ -48,48 +48,49 @@
 					</button>
 					<h4 class="modal-title" id="myModalLabel2">Register</h4>
 				</div>
-
+				<!-- modal -->
 				<div class="modal-body">
 					<form class="validate-formReg" action="#"
 						th:action="@{/index/register}" th:object="${register}"
 						method="post">
 
 						<div class="wrap-input100">
-							<input class="input100" type="text" name="register_first_name"
+							<input class="input100Reg" type="text" name="register_first_name"
 								th:field="*{firstName}"> <span class="focus-input100"></span>
 							<span class="label-input100">Your name..</span>
 						</div>
 
 
 						<div class="wrap-input100">
-							<input class="input100" type="text" name="register_last_name"
+							<input class="input100Reg" type="text" name="register_last_name"
 								th:field="*{lastName}"> <span class="focus-input100"></span>
 							<span class="label-input100">Last Name</span>
 						</div>
 
 						<div class="wrap-input100">
-							<input class="input100" type="date" name="register_date_of_birth">
-							<span class="focus-input100"></span> <span class="label-input100"></span>
+							<input class="input100Reg" type="date"
+								name="register_date_of_birth"> <span
+								class="focus-input100"></span> <span class="label-input100"></span>
 						</div>
 
 						<div class="wrap-input100 validate-inputReg"
 							data-validate="Valid email is required: ex@abc.xyz">
-							<input class="input100" type="text" name="emailReg"> <span
+							<input class="input100Reg" type="text" name="emailReg"> <span
 								class="focus-input100"></span> <span class="label-input100">Email</span>
 						</div>
 
 
 						<div class="wrap-input100 validate-inputReg"
 							data-validate="Password is required">
-							<input class="input100" type="password" name="register_passwd">
+							<input class="input100Reg" type="password" name="register_passwd">
 							<span class="focus-input100"></span> <span class="label-input100">Password</span>
 						</div>
 
 						<div class="wrap-input100 validate-inputReg"
 							data-validate="Password is required">
-							<input class="input100" type="password" name="register_repasswd">
-							<span class="focus-input100"></span> <span class="label-input100">Retype
-								password..</span>
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
 						</div>
 
 						<div class="container-login100-form-btn">
@@ -119,10 +120,10 @@
 			<div class="container-login100">
 				<div class="wrap-login100">
 					<div class="login100-form">
-						<span class="login100-form-title p-b-43"> Login to continue
-						</span>
-						<form th:action="@{/index/login}" th:object="${login}"
-							method="post">
+						<form class="validate-form" th:action="@{/index/login}"
+							th:object="${login}" method="post">
+							<span class="login100-form-title p-b-43"> Login to
+								continue </span>
 							<div class="wrap-input100 validate-input"
 								data-validate="Valid email is required: ex@abc.xyz">
 								<input class="input100" type="text" name="email"
