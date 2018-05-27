@@ -1,14 +1,10 @@
 package com.cloud.project.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
-	
-	private Long id;
-	private String username;
-	private String password;
-	private String firstName;
-	private String lastName;
-	private String email;
-	
+
 	// TABLE CONSTANTS
 	public final static String USER_TABLE = "USERS";
 	public final static String FLD_ID = "ID";
@@ -18,6 +14,14 @@ public class User {
 	public final static String FLD_LAST_NAME = "LASTNAME";
 	public final static String FLD_EMAIL = "EMAIL";
 
+	private Long id;
+	private String username;
+	private String password;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private List<CarLicense> cars;
+
 	public User(Long id, String username, String password, String email, String firstName, String lastName) {
 		super();
 		this.id = id;
@@ -26,6 +30,16 @@ public class User {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
+	}
+
+	public User() {
+		this.id = (long) 0;
+		this.username = "";
+		this.password = "";
+		this.email = "";
+		this.firstName = "";
+		this.lastName = "";
+		this.cars = new ArrayList<>();
 	}
 
 	public String getUsername() {
@@ -51,7 +65,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -59,7 +73,7 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -76,9 +90,18 @@ public class User {
 		this.lastName = lastName;
 	}
 
+	public List<CarLicense> getCars() {
+		return cars;
+	}
+
+	public void setCars(List<CarLicense> cars) {
+		this.cars = cars;
+	}
+
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", email=" + email + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", cars=" + cars + "]";
 	}
 
 }

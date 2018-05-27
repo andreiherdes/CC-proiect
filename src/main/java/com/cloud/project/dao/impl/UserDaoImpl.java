@@ -7,13 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cloud.project.dao.CarLicenseDao;
 import com.cloud.project.dao.UserDao;
 import com.cloud.project.database.CloudSqlConnection;
+import com.cloud.project.model.CarLicense;
 import com.cloud.project.model.User;
 
 public class UserDaoImpl implements UserDao {
 
-	Connection conn;
+	private Connection conn;
+	private CarLicenseDao carDao = new CarLicenseDaoImpl();
 
 	@Override
 	public User getById(Long id) throws SQLException {
@@ -25,10 +30,12 @@ public class UserDaoImpl implements UserDao {
 
 		ResultSet result = stmt.executeQuery();
 
-		User user = new User(result.getLong(User.FLD_ID), result.getString(User.FLD_USERNAME),
-				result.getString(User.FLD_PASSWORD), result.getString(User.FLD_EMAIL),
-				result.getString(User.FLD_FIRST_NAME), result.getString(User.FLD_LAST_NAME));
+		User user = new User();
 
+		if (result.next()) {
+			List<CarLicense> cars = carDao.getAll(result.getLong(User.FLD_ID));
+			DaoUtils.loadUser(result, user, cars);
+		}
 		conn.close();
 
 		return user;
@@ -43,9 +50,11 @@ public class UserDaoImpl implements UserDao {
 
 		List<User> users = new ArrayList<>();
 		while (result.next()) {
-			users.add(new User(result.getLong(User.FLD_ID), result.getString(User.FLD_USERNAME),
-					result.getString(User.FLD_PASSWORD), result.getString(User.FLD_EMAIL),
-					result.getString(User.FLD_FIRST_NAME), result.getString(User.FLD_LAST_NAME)));
+			User user = new User();
+			List<CarLicense> cars = carDao.getAll(result.getLong(User.FLD_ID));
+
+			users.add(user);
+			DaoUtils.loadUser(result, user, cars);
 		}
 		conn.close();
 		return users;
@@ -64,6 +73,10 @@ public class UserDaoImpl implements UserDao {
 		stmt.setString(4, entity.getFirstName());
 		stmt.setString(5, entity.getLastName());
 
+		for (CarLicense car : entity.getCars()) {
+			carDao.persist(car);
+		}
+
 		stmt.executeQuery();
 		conn.close();
 
@@ -76,9 +89,12 @@ public class UserDaoImpl implements UserDao {
 		PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + User.USER_TABLE + " WHERE ID = ?");
 		stmt.setLong(1, id);
 
-		stmt.executeQuery();
-		conn.close();
+		int deleted = stmt.executeUpdate();
 
+		if (deleted == 0) {
+			throw new SQLException("Nothing to delete");
+		}
+		conn.close();
 	}
 
 	@Override
@@ -91,7 +107,7 @@ public class UserDaoImpl implements UserDao {
 
 		ResultSet result = stmt.executeQuery();
 
-		boolean isValid = result.next() ? true : false;
+		boolean isValid = result.next() ? false : true;
 		conn.close();
 
 		return isValid;
@@ -106,7 +122,7 @@ public class UserDaoImpl implements UserDao {
 		stmt.setString(1, username);
 
 		ResultSet result = stmt.executeQuery();
-		boolean isValid = result.next() ? true : false;
+		boolean isValid = result.next() ? false : true;
 		conn.close();
 
 		return isValid;
@@ -122,9 +138,10 @@ public class UserDaoImpl implements UserDao {
 		stmt.setString(2, username);
 
 		ResultSet result = stmt.executeQuery();
-		User user = new User(result.getLong(User.FLD_ID), result.getString(User.FLD_USERNAME),
-				result.getString(User.FLD_PASSWORD), result.getString(User.FLD_EMAIL),
-				result.getString(User.FLD_FIRST_NAME), result.getString(User.FLD_LAST_NAME));
+		User user = new User();
+		if (result.next()) {
+			DaoUtils.loadUser(result, user, null);
+		}
 
 		conn.close();
 
