@@ -6,11 +6,11 @@ import java.util.List;
 import com.cloud.project.model.User;
 
 public interface UserDao {
-	
-	//TODO implement generic DAO
-	
+
+	// TODO implement generic DAO
+
 	User getById(Long id) throws SQLException;
-	
+
 	List<User> getAll() throws SQLException;
 
 	void persist(User entity) throws SQLException;
@@ -19,8 +19,6 @@ public interface UserDao {
 
 	boolean isEmailValid(String email) throws SQLException;
 
-	boolean isUsernameValid(String username) throws SQLException;
+	User getByCredentials(String password, String email) throws SQLException;
 
-	User getByCredentials(String password, String username) throws SQLException;
-	
 }

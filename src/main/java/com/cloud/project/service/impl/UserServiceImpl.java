@@ -27,17 +27,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void register(User entity) throws SQLException {
-		boolean isEmailValid = userDao.isEmailValid(entity.getEmail());
-		boolean isUsernameValid = userDao.isUsernameValid(entity.getUsername());
+	public void processRegister(User entity) throws SQLException {
 
-		if (isEmailValid && isUsernameValid) {
+		if (userDao.isEmailValid(entity.getEmail())) {
 			userDao.persist(entity);
 		} else {
-			if (!isEmailValid) {
-				throw new SQLException("Invalid Email!");
-			}
-			throw new SQLException("Invalid username!");
+			throw new SQLException("Invalid Email!");
 		}
 
 	}
@@ -45,6 +40,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteById(long id) throws SQLException {
 		userDao.deleteById(id);
+	}
+
+	@Override
+	public User processLogin(String email, String password) throws SQLException {
+		return userDao.getByCredentials(password, email);
 	}
 
 }

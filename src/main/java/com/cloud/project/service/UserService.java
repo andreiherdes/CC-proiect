@@ -11,7 +11,9 @@ public interface UserService {
 	
 	List<User> getAll() throws SQLException;
 
-	void register(User entity) throws SQLException;
+	void processRegister(User entity) throws SQLException;
+	
+	User processLogin(String email, String password) throws SQLException;
 
 	void deleteById(long id) throws SQLException;
 }

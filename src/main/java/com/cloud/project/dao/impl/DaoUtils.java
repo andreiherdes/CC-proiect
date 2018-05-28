@@ -11,14 +11,11 @@ public class DaoUtils {
 
 	static void loadUser(ResultSet result, User user, List<CarLicense> cars) throws SQLException {
 		user.setId(result.getLong(User.FLD_ID));
-		user.setUsername(result.getString(User.FLD_USERNAME));
 		user.setPassword(result.getString(User.FLD_PASSWORD));
 		user.setEmail(result.getString(User.FLD_EMAIL));
 		user.setFirstName(result.getString(User.FLD_FIRST_NAME));
 		user.setLastName(result.getString(User.FLD_LAST_NAME));
-		if (cars != null) {
-			user.setCars(cars);
-		}
+		user.setCars(cars);
 
 	}
 

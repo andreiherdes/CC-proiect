@@ -75,14 +75,14 @@
 
 						<div class="wrap-input100 validate-inputReg"
 							data-validate="Valid email is required: ex@abc.xyz">
-							<input class="input100Reg" type="text" name="emailReg"> <span
+							<input class="input100Reg" type="text" name="emailReg" th:field="*{emailReg}"> <span
 								class="focus-input100"></span> <span class="label-input100">Email</span>
 						</div>
 
 
 						<div class="wrap-input100 validate-inputReg"
 							data-validate="Password is required">
-							<input class="input100Reg" type="password" name="register_passwd">
+							<input class="input100Reg" type="password" name="register_passwd" th:field="*{passwordReg}">
 							<span class="focus-input100"></span> <span class="label-input100">Password</span>
 						</div>
 

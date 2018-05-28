@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.cloud.project.dao.CarLicenseDao;
@@ -20,6 +22,9 @@ public class UserDaoImpl implements UserDao {
 
 	private Connection conn;
 	private CarLicenseDao carDao = new CarLicenseDaoImpl();
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public User getById(Long id) throws SQLException {
@@ -65,14 +70,12 @@ public class UserDaoImpl implements UserDao {
 	public void persist(User entity) throws SQLException {
 		conn = CloudSqlConnection.INSTANCE.getConnection();
 
-		PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + User.USER_TABLE + "(" + User.FLD_USERNAME + ","
-				+ User.FLD_PASSWORD + "," + User.FLD_EMAIL + "," + User.FLD_FIRST_NAME + "," + User.FLD_LAST_NAME
-				+ ") VALUES (?,?,?,?,?)");
-		stmt.setString(1, entity.getUsername());
-		stmt.setString(2, entity.getPassword());
-		stmt.setString(3, entity.getEmail());
-		stmt.setString(4, entity.getFirstName());
-		stmt.setString(5, entity.getLastName());
+		PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + User.USER_TABLE + "(" + User.FLD_PASSWORD + ","
+				+ User.FLD_EMAIL + "," + User.FLD_FIRST_NAME + "," + User.FLD_LAST_NAME + ") VALUES (?,?,?,?)");
+		stmt.setString(1, passwordEncoder.encode(entity.getPassword()));
+		stmt.setString(2, entity.getEmail());
+		stmt.setString(3, entity.getFirstName());
+		stmt.setString(4, entity.getLastName());
 
 		for (CarLicense car : entity.getCars()) {
 			carDao.persist(car);
@@ -115,38 +118,21 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean isUsernameValid(String username) throws SQLException {
-
-		if (username.isEmpty()) {
-			return false;
-		}
-
+	public User getByCredentials(String password, String email) throws SQLException {
 		conn = CloudSqlConnection.INSTANCE.getConnection();
 
 		PreparedStatement stmt = conn
-				.prepareStatement("SELECT * FROM " + User.USER_TABLE + " WHERE " + User.FLD_USERNAME + " = ?");
-		stmt.setString(1, username);
-
-		ResultSet result = stmt.executeQuery();
-		boolean isValid = result.next() ? false : true;
-		conn.close();
-
-		return isValid;
-	}
-
-	@Override
-	public User getByCredentials(String password, String username) throws SQLException {
-		conn = CloudSqlConnection.INSTANCE.getConnection();
-
-		PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + User.USER_TABLE + " WHERE "
-				+ User.FLD_PASSWORD + " = ? AND " + User.FLD_USERNAME + " = ?");
-		stmt.setString(1, password);
-		stmt.setString(2, username);
+				.prepareStatement("SELECT * FROM " + User.USER_TABLE + " WHERE " + User.FLD_EMAIL + " = ?");
+		stmt.setString(1, email);
 
 		ResultSet result = stmt.executeQuery();
 		User user = new User();
-		if (result.next()) {
-			DaoUtils.loadUser(result, user, null);
+		
+		String hashedPassword = passwordEncoder.encode(password);
+		
+		if (result.next() && passwordEncoder.matches(password, hashedPassword)) {
+			List<CarLicense> cars = carDao.getAll(result.getLong(User.FLD_ID));
+			DaoUtils.loadUser(result, user, cars);
 		}
 
 		conn.close();
