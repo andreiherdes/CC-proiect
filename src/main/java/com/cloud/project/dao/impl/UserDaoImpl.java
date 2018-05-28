@@ -128,11 +128,12 @@ public class UserDaoImpl implements UserDao {
 		ResultSet result = stmt.executeQuery();
 		User user = new User();
 		
-		String hashedPassword = passwordEncoder.encode(password);
-		
-		if (result.next() && passwordEncoder.matches(password, hashedPassword)) {
-			List<CarLicense> cars = carDao.getAll(result.getLong(User.FLD_ID));
-			DaoUtils.loadUser(result, user, cars);
+		if (result.next()) {
+			String hashedPassword = result.getString(User.FLD_PASSWORD);
+			if (passwordEncoder.matches(password, hashedPassword)); {
+				List<CarLicense> cars = carDao.getAll(result.getLong(User.FLD_ID));
+				DaoUtils.loadUser(result, user, cars);
+			}
 		}
 
 		conn.close();
