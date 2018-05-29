@@ -1,26 +1,30 @@
 package com.cloud.project.database;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.cloud.project.utils.DatabaseCredentials;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 public class CloudSqlConnection {
 
 	public final static CloudSqlConnection INSTANCE = new CloudSqlConnection();
-
-	private final static String SQL_URL = "jdbc:mysql://google/CLOUDCOMPUTING" + "?cloudSqlInstance="
-			+ DatabaseCredentials.INSTANCE_CONNECTION_NAME
-			+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=" + DatabaseCredentials.USERNAME
-			+ "&password=" + DatabaseCredentials.PASSWORD + "&useSSL=false";
+	
+	private DatabaseCredentials dbCredentials;
 
 	private CloudSqlConnection() {
-		
+		try {
+			dbCredentials = new DatabaseCredentials();
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(SQL_URL);
+		return DriverManager.getConnection(dbCredentials.getSqlUrl());
 	}
 
 }
