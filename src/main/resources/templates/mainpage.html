@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>My Car</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="author"
+	content="Herdes Andrei, Mihalachi Bogdan-Marian, Tofan Cosmin-Alexandru">
+<meta name="description" content="No description at this time.">
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="assets/css/mainpage.css" />
+<link rel="shortcut icon" href="images/small_logo.png"
+	type="image/x-icon">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--<script-->
+<!--src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<!--<link rel="stylesheet" type="text/css"-->
+<!--href="assets/vendor/bootstrap/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css"
+	href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/vendor/css-hamburgers/hamburgers.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/vendor/animsition/css/animsition.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/vendor/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="assets/css/util.css">
+</head>
+<body>
+	<nav class="navbar navbar-inverse" style="border-radius: 0;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-branda" href="index.html"> <img class="logo"
+					src="images/logo_white_small.png" alt="logo" />
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span
+							class="glyphicon glyphicon-user white"></span> My Profile</a></li>
+					<li><a href="index.html"><span
+							class="glyphicon glyphicon-log-in white"></span> Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<!--Modal License Plate-->
+	<div class="modal right fade" id="modalLicensePlates" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel2">ADD / EDIT</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal License Plate-->
+
+	<!--Modal Events Log-->
+	<div class="modal right fade" id="modalEventsLog" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel3">Events Log</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Events Log-->
+
+	<!--Modal Accident-->
+	<div class="modal right fade" id="modalAccident" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel4">Accident</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Accident-->
+
+	<!--Modal PickUp-->
+	<div class="modal right fade" id="modalPickUp" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel5">Pick Up</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal PickUp-->
+
+	<!--Modal Park-->
+	<div class="modal right fade" id="modalPark" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel6">Park</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Park-->
+
+	<!--Modal Info-->
+	<div class="modal right fade" id="modalInfo" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel7">Info</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Info-->
+
+	<!--Modal Thief-->
+	<div class="modal right fade" id="modalThief" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel8">Thief</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Thief-->
+
+	<!--Modal Wheel Block-->
+	<div class="modal right fade" id="modalWheelBlock" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel9">Wheel Block</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Wheel Block-->
+
+	<!--Modal Car Light-->
+	<div class="modal right fade" id="modalCarLight" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabe21">Car Light</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Car Light-->
+
+	<!--Modal Chat-->
+	<div class="modal right fade" id="modalChat" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabe20">Chat</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<form class="validate-formReg">
+
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Password is required">
+							<input class="input100Reg" type="password"
+								name="register_repasswd"> <span class="focus-input100"></span>
+							<span class="label-input100">Retype password..</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input name="registerButton" class="login100-form-btn"
+								type="submit" value="Register" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal Chat-->
+
+	<div class="content">
+		<div class="limiter">
+			<div class="two-sides">
+				<div class="wrap-login1001">
+					<div class="login100-form1">
+						<div class="text-2">
+							<h2>Events log</h2>
+							<table class="table">
+								<tbody>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+									<tr>
+										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+										<td><a href="#" class="txt1" data-toggle="modal"
+											data-target="#modalEventsLog"> Details </a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="login100-more1">
+						<h2>License Plates</h2>
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>John</td>
+								</tr>
+								<tr>
+									<td>Mary</td>
+								</tr>
+								<tr>
+									<td>July</td>
+								</tr>
+								<tr>
+									<td>July</td>
+								</tr>
+								<tr>
+									<td>July</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<div class="container-login100-form-btn-add-edit">
+							<input name="registerButton" class="login100-form-btn-add-edit"
+								data-toggle="modal" data-target="#modalLicensePlates"
+								type="submit" value="ADD / EDIT" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box3">
+				<h2>Notify Me</h2>
+				<div class="img-actions">
+					<input class="b1 actions" type="image" src="images/accident.png"
+						alt="Submit" width="100" height="100" data-toggle="modal"
+						data-target="#modalAccident"> <input class="b2 actions"
+						type="image" src="images/pick_up.png" alt="Submit" width="100"
+						height="100" data-toggle="modal" data-target="#modalPickUp">
+					<input class="b3 actions" type="image" src="images/parking.png"
+						alt="Submit" width="100" height="100" data-toggle="modal"
+						data-target="#modalPark"> <input class="b4 actions"
+						type="image" src="images/info.png" alt="Submit" width="100"
+						height="100" data-toggle="modal" data-target="#modalInfo">
+					<input class="b5 actions" type="image" src="images/thief.png"
+						alt="Submit" width="100" height="100" data-toggle="modal"
+						data-target="#modalThief"> <input class="b6 actions"
+						type="image" src="images/wheel_block.png" alt="Submit" width="100"
+						height="100" data-toggle="modal" data-target="#modalWheelBlock">
+					<input class="b7 actions" type="image" src="images/car_light.png"
+						alt="Submit" width="100" height="100" data-toggle="modal"
+						data-target="#modalCarLight"> <input class="b8 actions"
+						type="image" src="images/chat.png" alt="Submit" width="100"
+						height="100" data-toggle="modal" data-target="#modalChat">
+				</div>
+			</div>
+		</div>
+
+
+		<div class="footer">
+			<a href="index.html"> <img src="images/logo_white_small.png"
+				alt="logo" />
+			</a>
+			<p class="footer_details">© 2018 Notify Me and individual
+				contributions. Design and technology with passion from CAB.</p>
+		</div>
+	</div>
+</body>
+</html>

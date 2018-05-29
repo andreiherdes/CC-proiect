@@ -48,6 +48,7 @@ public class IndexController {
 			if (user.getId() > 0) {
 				getUserSession().setLoggedInUser(user);
 				System.out.println("Logged in");
+				return "mainpage";
 			}
 
 		} catch (SQLException e) {
@@ -59,7 +60,7 @@ public class IndexController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerSubmit(@ModelAttribute Register register) {
 		User user = new User();
-		
+
 		user.setEmail(register.getEmailReg());
 		user.setFirstName(register.getFirstName());
 		user.setLastName(register.getLastName());
