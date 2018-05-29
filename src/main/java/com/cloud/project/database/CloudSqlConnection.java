@@ -24,7 +24,7 @@ public class CloudSqlConnection {
 	}
 
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(dbCredentials.getSqlUrl());
+		return DriverManager.getConnection(dbCredentials.getSqlUrl(), dbCredentials.getUsername(), dbCredentials.getPassword());
 	}
 
 }

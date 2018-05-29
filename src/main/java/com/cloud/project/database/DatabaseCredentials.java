@@ -17,6 +17,7 @@ public class DatabaseCredentials {
 
 	private String configFilePath = "db_config.xml";
 	private String instanceConnectionName;
+	private String databaseName = "CLOUDCOMPUTING";
 	private String username;
 	private String password;
 
@@ -28,9 +29,11 @@ public class DatabaseCredentials {
 
 	public DatabaseCredentials() throws ParserConfigurationException, SAXException, IOException {
 		loadCredentials();
-		sqlUrl = "jdbc:mysql://google/CLOUDCOMPUTING" + "?cloudSqlInstance=" + instanceConnectionName
-				+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=" + username + "&password=" + password
-				+ "&useSSL=false";
+		sqlUrl = String.format(
+			    "jdbc:mysql://google/%s?cloudSqlInstance=%s"
+			            + "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false",
+			        databaseName,
+			        instanceConnectionName);
 	}
 
 	private void loadCredentials() throws ParserConfigurationException, SAXException, IOException {
@@ -66,4 +69,11 @@ public class DatabaseCredentials {
 		return sqlUrl;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
 }
