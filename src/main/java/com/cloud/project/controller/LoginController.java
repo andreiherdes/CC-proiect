@@ -22,7 +22,7 @@ public class LoginController {
 	public String loginSubmit(@ModelAttribute Login login) {
 		System.out.println(login.getEmail());
 		System.out.println(login.getPassword());
-		return "result";
+		return "mainpage";
 	}
 	
 }

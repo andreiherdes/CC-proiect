@@ -29,6 +29,12 @@ public class IndexController {
 	public Register getRegisterObject() {
 		return new Register();
 	}
+	
+//	@ModelAttribute("mainpage")
+//	public Register getMainPageObject() {
+//		return new MainPage();
+//	}
+	
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String loadIndex() {
@@ -39,7 +45,7 @@ public class IndexController {
 	public String loginSubmit(@ModelAttribute Login login) {
 		System.out.println(login.getEmail());
 		System.out.println(login.getPassword());
-		return "result";
+		return "mainpage";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)

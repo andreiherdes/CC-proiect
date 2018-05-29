@@ -1,0 +1,221 @@
+.navbar {
+    margin-bottom: 0 !important
+}
+
+.navbar-branda {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+}
+
+.container-fluid {
+    background-color: #064269;
+}
+
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+ul.nav a:hover {
+    color: gray !important;
+}
+
+.two-sides {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrap-login1001 {
+    width: 100%;
+    height: 360px;
+    background: #fff;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    align-items: stretch;
+    flex-direction: row-reverse;
+}
+
+.login100-form1 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px 10px 10px;
+    width: 850px;
+    display: block;
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: #f7f7f7;
+}
+
+.txt12 {
+    font-family: Montserrat-Regular, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #555555;
+}
+
+.box3 {
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login100-more1 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px 10px 10px;
+    background-size: cover;
+    background: no-repeat center;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    overflow-y: auto;
+}
+
+.login100-more1::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.login100-more1 .text-box {
+    margin: 50px;
+    background-color: white;
+}
+
+/*[ Responsive ]*/
+@media ( max-width: 992px) {
+    .wrap-login1001 {
+        height: auto;
+    }
+
+    .login100-form1 {
+        width: 50%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .login100-more1 {
+        width: 30%;
+    }
+}
+
+@media ( max-width: 768px) {
+    .wrap-login1001 {
+        height: auto;
+    }
+
+    .login100-form1 {
+        width: 100%;
+    }
+
+    .login100-more1 {
+        display: block;
+        width: 100%;
+        height: 350px;
+    }
+}
+
+.container-login100-form-btn-add-edit {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+}
+
+.login100-form-btn-add-edit {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*padding: 0 20px;*/
+    width: 50%;
+    height: 40px;
+    border-radius: 10px;
+    background: #064269;
+    font-family: Montserrat-Bold, sans-serif;
+    font-size: 10px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.text-2 h2 {
+    margin-left: 10px;
+}
+
+.box3 h2 {
+    /*margin-left: 5px;*/
+    margin-top: 10px;
+}
+
+.login100-form-btn-add-edit:hover {
+    background: #333333;
+}
+
+.b1, .b5 {
+    background-color: red;
+}
+
+.b2, .b3, .b4, .b6, .b7 {
+    background-color: #CDDC39;
+}
+
+.b8 {
+    background-color: green;
+}
+
+/*.box3 {*/
+/*text-align: center;*/
+/*padding-bottom: 15px;*/
+/*padding-top: 5px;*/
+/*}*/
+
+/*.actions {*/
+/*margin: 0 15px 0 0;*/
+/*}*/
+
+.box3 {
+    text-align: center;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    margin-bottom: 150px;
+}
+
+.actions {
+    margin: 0 15px 0 0;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
