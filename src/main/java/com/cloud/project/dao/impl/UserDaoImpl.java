@@ -146,23 +146,27 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<String> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException {
+	public List<User> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException {
 		conn = CloudSqlConnection.INSTANCE.getConnection();
 
-		PreparedStatement stmt = conn.prepareStatement("SELECT " + User.USER_TABLE + "." + User.FLD_PHONE_NUMBER
-				+ " FROM " + User.USER_TABLE + " INNER JOIN " + CarLicense.CAR_LICENSE_TABLE + " ON " + User.USER_TABLE
-				+ "." + User.FLD_ID + " = " + CarLicense.CAR_LICENSE_TABLE + "." + CarLicense.FLD_FK_USER_ID + " WHERE "
-				+ CarLicense.CAR_LICENSE_TABLE + "." + CarLicense.FLD_LICENSE + " = ?");
-		stmt.setString(1, licenseNumber);
+		PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + User.USER_TABLE + " INNER JOIN "
+				+ CarLicense.CAR_LICENSE_TABLE + " ON " + User.USER_TABLE + "." + User.FLD_ID + " = "
+				+ CarLicense.CAR_LICENSE_TABLE + "." + CarLicense.FLD_FK_USER_ID + " WHERE LOWER("
+				+ CarLicense.CAR_LICENSE_TABLE + "." + CarLicense.FLD_LICENSE + ") = ?");
+		String toLowerCaseLicense = licenseNumber.toLowerCase();
+		stmt.setString(1, toLowerCaseLicense);
 
 		ResultSet result = stmt.executeQuery();
-		List<String> phoneNumbers = new ArrayList<>();
+		List<User> users = new ArrayList<>();
 
 		while (result.next()) {
-			phoneNumbers.add(result.getString(1));
+			User user = new User();
+			users.add(user);
+			List<CarLicense> cars = carDao.getAll(result.getLong(User.FLD_ID));
+			DaoUtils.loadUser(result, user, cars);
 		}
 
-		return phoneNumbers;
+		return users;
 	}
 
 }
