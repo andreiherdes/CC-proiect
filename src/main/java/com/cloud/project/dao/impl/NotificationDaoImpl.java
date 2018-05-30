@@ -59,4 +59,45 @@ public class NotificationDaoImpl implements NotificationDao {
 		return notifications;
 	}
 
+	@Override
+	public Notification getNotificationByIssuerIdUserIdCarId(Long issuerId, Long userId, Long carId)
+			throws SQLException {
+		conn = CloudSqlConnection.INSTANCE.getConnection();
+
+		PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + Notification.NOTIFICATION_TABLE + " WHERE "
+				+ Notification.FLD_FK_ISSUER_ID + " = ? AND " + Notification.FLD_FK_USER_ID + " = ? AND "
+				+ Notification.FLD_FK_CAR_ID + " = ?");
+		stmt.setLong(1, issuerId);
+		stmt.setLong(1, userId);
+		stmt.setLong(1, carId);
+
+		ResultSet result = stmt.executeQuery();
+		
+		Notification notification = new Notification();
+		if (result.next()) {
+			DaoUtils.loadNotification(result, notification);
+		}
+		conn.close();
+
+		return notification;
+	}
+
+	@Override
+	public void persist(Notification entity) throws SQLException {
+		conn = CloudSqlConnection.INSTANCE.getConnection();
+
+		PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + Notification.NOTIFICATION_TABLE + "("
+				+ Notification.FLD_FK_USER_ID + "," + Notification.FLD_FK_ISSUER_ID + "," + Notification.FLD_FK_CAR_ID
+				+ "," + Notification.FLD_ALERT_TYPE + "," + Notification.FLD_TIMESTAMP + ") VALUES (?,?,?,?,?)");
+		stmt.setLong(1, entity.getUserId());
+		stmt.setLong(2, entity.getIssuerId());
+		stmt.setLong(3, entity.getCarLicenseId());
+		stmt.setString(4, entity.getAlertType());
+		stmt.setDate(5, new java.sql.Date(System.currentTimeMillis()));
+
+		stmt.executeUpdate();
+		conn.close();
+
+	}
+
 }

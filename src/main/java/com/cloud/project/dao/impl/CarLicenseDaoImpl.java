@@ -81,7 +81,8 @@ public class CarLicenseDaoImpl implements CarLicenseDao {
 	public void deleteById(long id) throws SQLException {
 		conn = CloudSqlConnection.INSTANCE.getConnection();
 
-		PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + CarLicense.CAR_LICENSE_TABLE + " WHERE ID = ?");
+		PreparedStatement stmt = conn.prepareStatement(
+				"DELETE FROM " + CarLicense.CAR_LICENSE_TABLE + " WHERE " + CarLicense.FLD_CAR_ID + "  = ?");
 		stmt.setLong(1, id);
 
 		int deleted = stmt.executeUpdate();
@@ -97,8 +98,8 @@ public class CarLicenseDaoImpl implements CarLicenseDao {
 	public boolean isLicenseNumberValid(String license) throws SQLException {
 		conn = CloudSqlConnection.INSTANCE.getConnection();
 
-		PreparedStatement stmt = conn
-				.prepareStatement("SELECT * FROM " + CarLicense.CAR_LICENSE_TABLE+ " WHERE " + CarLicense.FLD_LICENSE + " = ?");
+		PreparedStatement stmt = conn.prepareStatement(
+				"SELECT * FROM " + CarLicense.CAR_LICENSE_TABLE + " WHERE " + CarLicense.FLD_LICENSE + " = ?");
 		stmt.setString(1, license);
 
 		ResultSet result = stmt.executeQuery();
@@ -106,5 +107,23 @@ public class CarLicenseDaoImpl implements CarLicenseDao {
 		conn.close();
 
 		return isValid;
+	}
+
+	@Override
+	public void deleteByLicenseNumberAndOwnerId(String licenseNumber, long ownerId) throws SQLException {
+		conn = CloudSqlConnection.INSTANCE.getConnection();
+
+		PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + CarLicense.CAR_LICENSE_TABLE + " WHERE "
+				+ CarLicense.FLD_LICENSE + " = ? AND " + CarLicense.FLD_FK_USER_ID + "=?");
+		stmt.setString(1, licenseNumber);
+		stmt.setLong(2, ownerId);
+
+		int deleted = stmt.executeUpdate();
+
+		if (deleted == 0) {
+			throw new SQLException("Nothing to delete");
+		}
+		conn.close();
+
 	}
 }

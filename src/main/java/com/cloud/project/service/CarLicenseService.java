@@ -14,4 +14,6 @@ public interface CarLicenseService {
 	void addCarLicense(CarLicense entity) throws SQLException;
 
 	void deleteById(long id) throws SQLException;
+	
+	void deleteByLicenseNumberAndOwnerId(String licenseNumber, long ownerId) throws SQLException;
 }

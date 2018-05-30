@@ -10,4 +10,9 @@ public interface NotificationDao {
 	List<Notification> getNotificationsByUserId(Long id) throws SQLException;
 
 	List<Notification> getNotificationsByIssuer(Long id) throws SQLException;
+
+	void persist(Notification entity) throws SQLException;
+
+	public Notification getNotificationByIssuerIdUserIdCarId(Long issuerId, Long userId, Long carId)
+			throws SQLException;
 }

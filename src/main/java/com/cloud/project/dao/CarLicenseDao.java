@@ -15,6 +15,8 @@ public interface CarLicenseDao {
 
 	void deleteById(long id) throws SQLException;
 	
+	void deleteByLicenseNumberAndOwnerId(String licenseNumber, long ownerId) throws SQLException;
+	
 	boolean isLicenseNumberValid(String license) throws SQLException;
 	
 }

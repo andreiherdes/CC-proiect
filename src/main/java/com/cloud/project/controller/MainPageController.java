@@ -48,15 +48,22 @@ public class MainPageController {
 	}
 
 	@RequestMapping(value = "/deleteLicense", method = RequestMethod.POST)
-	public RedirectView deleteLicenseSubmit(@ModelAttribute CarLicense carLicense) {
-		System.out.println(carLicense.getLicense());
+	public RedirectView deleteLicenseSubmit(@ModelAttribute CarLicense carLicense) throws Exception {
+		try {
+			carLicenseService.deleteByLicenseNumberAndOwnerId(carLicense.getLicense(),
+					userSession.getLoggedInUser().getId());
+			userSession.getLoggedInUser().getCars().removeIf(car -> car.getLicense().equals(carLicense.getLicense()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+
 		return new RedirectView("/mainpage");
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public RedirectView performLogout() {
 		userSession.setLoggedInUser(null);
-
 		return new RedirectView("/");
 	}
 

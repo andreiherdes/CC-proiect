@@ -37,4 +37,9 @@ public class CarLicenseServiceImpl implements CarLicenseService {
 
 	}
 
+	@Override
+	public void deleteByLicenseNumberAndOwnerId(String licenseNumber, long ownerId) throws SQLException {
+		carDao.deleteByLicenseNumberAndOwnerId(licenseNumber, ownerId);
+	}
+
 }

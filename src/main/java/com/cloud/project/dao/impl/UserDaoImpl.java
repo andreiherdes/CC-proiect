@@ -145,4 +145,24 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	@Override
+	public List<String> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException {
+		conn = CloudSqlConnection.INSTANCE.getConnection();
+
+		PreparedStatement stmt = conn.prepareStatement("SELECT " + User.USER_TABLE + "." + User.FLD_PHONE_NUMBER
+				+ " FROM " + User.USER_TABLE + " INNER JOIN " + CarLicense.CAR_LICENSE_TABLE + " ON " + User.USER_TABLE
+				+ "." + User.FLD_ID + " = " + CarLicense.CAR_LICENSE_TABLE + "." + CarLicense.FLD_FK_USER_ID + " WHERE "
+				+ CarLicense.CAR_LICENSE_TABLE + "." + CarLicense.FLD_LICENSE + " = ?");
+		stmt.setString(1, licenseNumber);
+
+		ResultSet result = stmt.executeQuery();
+		List<String> phoneNumbers = new ArrayList<>();
+
+		while (result.next()) {
+			phoneNumbers.add(result.getString(1));
+		}
+
+		return phoneNumbers;
+	}
+
 }

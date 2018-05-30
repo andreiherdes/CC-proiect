@@ -14,10 +14,10 @@ public class Notification {
 
 	private Long id;
 	private Long userId;
+	private Long issuerId;
 	private Long carLicenseId;
 	private String alertType;
 	private Date timestamp;
-	private Long issuerId;
 
 	public Notification() {
 		this.id = (long) 0;
