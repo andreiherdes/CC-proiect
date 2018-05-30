@@ -566,53 +566,10 @@
 							<h2>Events log</h2>
 							<table class="table">
 								<tbody>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
-										<td><a href="#" class="txt1" data-toggle="modal"
-											data-target="#modalEventsLog"> Details </a></td>
-									</tr>
-									<tr>
-										<td>Jofasdgfadsgsdfgdrthdrthdrtjhtgfhsghdfghsdfhsrthsghsghn</td>
+									<tr th:each="notificationDTO : ${notifications}"
+										data-toggle="modal" data-target="#modalEventsLog">
+										<td th:text="${notificationDTO.notification.alertType}" />
+										<td th:text="${notificationDTO.carLicense.license}" />
 										<td><a href="#" class="txt1" data-toggle="modal"
 											data-target="#modalEventsLog"> Details </a></td>
 									</tr>

@@ -1,13 +1,17 @@
 package com.cloud.project.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloud.project.dao.CarLicenseDao;
 import com.cloud.project.dao.NotificationDao;
 import com.cloud.project.dao.UserDao;
+import com.cloud.project.dto.NotificationDTO;
+import com.cloud.project.model.CarLicense;
 import com.cloud.project.model.Notification;
 import com.cloud.project.model.User;
 import com.cloud.project.service.UserService;
@@ -20,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private NotificationDao notificationDao;
+
+	@Autowired
+	CarLicenseDao carDao;
 
 	@Override
 	public User getById(Long id) throws SQLException {
@@ -73,6 +80,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException {
 		return userDao.getAllPhoneNumbersByLicenseNumber(licenseNumber);
+	}
+
+	@Override
+	public List<NotificationDTO> getAllNotificationsForUserId(long id) throws SQLException {
+		List<NotificationDTO> notificationDTOs = new ArrayList<>();
+
+		List<Notification> notifications = notificationDao.getNotificationsByUserId(id);
+
+		for (Notification notif : notifications) {
+			CarLicense car = carDao.getById(notif.getCarLicenseId());
+			NotificationDTO notifDTO = new NotificationDTO();
+			notifDTO.setNotification(notif);
+			notifDTO.setCarLicense(car);
+
+			notificationDTOs.add(notifDTO);
+		}
+
+		return notificationDTOs;
 	}
 
 }

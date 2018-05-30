@@ -1,9 +1,13 @@
 package com.cloud.project.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,18 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.cloud.project.component.EmailServiceImpl;
 import com.cloud.project.component.security.UserSession;
 import com.cloud.project.model.CarLicense;
 import com.cloud.project.model.User;
 import com.cloud.project.service.CarLicenseService;
 import com.cloud.project.service.UserService;
-import java.util.*;
-
-import com.twilio.sdk.*;
-import com.twilio.sdk.resource.factory.*;
-import com.twilio.sdk.resource.instance.*;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.resource.factory.MessageFactory;
+import com.twilio.sdk.resource.instance.Message;
 
 @Controller
 @RequestMapping("/mainpage")
@@ -39,16 +41,18 @@ public class MainPageController {
 	private UserService userService;
 
 	@Autowired
-	private UserController userController;
+	private EmailServiceImpl emailService;
 
 	@Autowired
 	private CarLicenseService carLicenseService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String loadPage(Model model, HttpServletRequest request) {
+	public String loadPage(Model model, HttpServletRequest request) throws SQLException {
 		model.addAttribute("sessionUserName", userSession.getLoggedInUser().getFirstName());
 		model.addAttribute("licensePlates", userSession.getLoggedInUser().getCars());
 		model.addAttribute("carLicense", new CarLicense());
+		Long loggedUserId = userSession.getLoggedInUser().getId();
+		model.addAttribute("notifications", userService.getAllNotificationsForUserId(loggedUserId));
 
 		return "mainpage";
 	}
@@ -94,7 +98,7 @@ public class MainPageController {
 		for (int i = 0; i < phoneNumbers.size(); i++) {
 			System.out.println(phoneNumbers.get(i).getEmail());
 			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
-			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Accident Notifiction",
+			sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Accident Notifiction",
 					"Your car has been involved in an accident resulting in damage to one part of the car.");
 			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Accident Notifiction"
 					+ "Your car has been involved in an accident resulting in damage to one part of the car.");
@@ -111,7 +115,7 @@ public class MainPageController {
 		for (int i = 0; i < phoneNumbers.size(); i++) {
 			System.out.println(phoneNumbers.get(i).getEmail());
 			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
-			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Pick Up Notifiction",
+			sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Pick Up Notifiction",
 					"Your car is about to be picked up because of parking in a forbidden area.");
 			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Pick Up Notifiction"
 					+ "Your car is about to be picked up because of parking in a forbidden area.");
@@ -128,7 +132,7 @@ public class MainPageController {
 		for (int i = 0; i < phoneNumbers.size(); i++) {
 			System.out.println(phoneNumbers.get(i).getEmail());
 			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
-			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Park Notifiction",
+			sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Park Notifiction",
 					"You would be advised to return to your car as you parked in an area where you obstruct the traffic.");
 			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Park Notifiction"
 					+ "You would be advised to return to your car as you parked in an area where you obstruct the traffic.");
@@ -145,7 +149,7 @@ public class MainPageController {
 		for (int i = 0; i < phoneNumbers.size(); i++) {
 			System.out.println(phoneNumbers.get(i).getEmail());
 			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
-			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Burglary Notifiction",
+			sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Burglary Notifiction",
 					"Your car was involved in an auto burglary. It has a broken window and it's quite messy inside. Please return to your car as soon as you can.");
 			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Burglary Notifiction"
 					+ "Your car was involved in an auto burglary. It has a broken window and it's quite messy inside. Please return to your car as soon as you can.");
@@ -162,7 +166,7 @@ public class MainPageController {
 		for (int i = 0; i < phoneNumbers.size(); i++) {
 			System.out.println(phoneNumbers.get(i).getEmail());
 			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
-			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Wheel Block Notifiction",
+			sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Wheel Block Notifiction",
 					"The wheel of your car is about to get roots. Come back until it becomes a tree.");
 			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Wheel Block Notifiction"
 					+ "The wheel of your car is about to get roots. Come back until it becomes a tree.");
@@ -179,20 +183,12 @@ public class MainPageController {
 		for (int i = 0; i < phoneNumbers.size(); i++) {
 			System.out.println(phoneNumbers.get(i).getEmail());
 			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
-			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Car Light Notifiction",
+			sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Car Light Notifiction",
 					"You receive this notification because i want to alert you that you have left a light open at your car which is wasting uselessly.");
 			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Car Light Notifiction"
 					+ "You receive this notification because i want to alert you that you have left a light open at your car which is wasting uselessly.");
 		}
 		return new RedirectView("/mainpage");
-	}
-
-	public UserSession getUserSession() {
-		return userSession;
-	}
-
-	public void setUserSession(UserSession userSession) {
-		this.userSession = userSession;
 	}
 
 	public void sendSms(String to, String smsText) throws TwilioRestException {
@@ -207,5 +203,26 @@ public class MainPageController {
 		Message message = messageFactory.create(params);
 
 		System.out.println(message.getSid());
+	}
+
+	private void sendEmail(String email, String subject, String message) {
+		System.out.println(userSession.getLoggedInUser());
+		emailService.sendSimpleMessage(email, subject, message);
+	}
+
+	public UserSession getUserSession() {
+		return userSession;
+	}
+
+	public void setUserSession(UserSession userSession) {
+		this.userSession = userSession;
+	}
+
+	public EmailServiceImpl getEmailService() {
+		return emailService;
+	}
+
+	public void setEmailService(EmailServiceImpl emailService) {
+		this.emailService = emailService;
 	}
 }

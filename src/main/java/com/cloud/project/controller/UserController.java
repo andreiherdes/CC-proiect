@@ -10,6 +10,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.cloud.project.component.EmailServiceImpl;
 import com.cloud.project.component.security.UserSession;
+import com.cloud.project.model.Notification;
 import com.cloud.project.service.UserService;
 
 @Controller
@@ -31,15 +32,33 @@ public class UserController {
 		return new RedirectView("/");
 	}
 
-	public void sendEmail(String email, String subject, String message) {
-		System.out.println(userSession.getLoggedInUser());
-		emailService.sendSimpleMessage(email, subject, message);
-//		return new RedirectView("/");
-	}
-
 	@RequestMapping(value = "/testQuery", method = RequestMethod.GET)
 	public RedirectView testQuery() throws SQLException {
 		System.out.println(userService.getAllPhoneNumbersByLicenseNumber("IS28ASD"));
+		return new RedirectView("/");
+	}
+
+
+	@RequestMapping(value = "/addNotification", method = RequestMethod.GET)
+	public RedirectView addNotifications() throws Exception {
+		Notification entity = new Notification();
+		entity.setUserId(userSession.getLoggedInUser().getId());
+		entity.setAlertType("Thief");
+		entity.setCarLicenseId((long) 2);
+		entity.setIssuerId((long) 2);
+		entity.setTimestamp(new java.sql.Date(System.currentTimeMillis()));
+		userService.processAddNotification(entity);
+		return new RedirectView("/");
+	}
+
+	@RequestMapping(value = "/getNotifications", method = RequestMethod.GET)
+	public RedirectView testNotifications() throws Exception {
+		Notification entity = new Notification();
+		entity.setAlertType("Thief");
+		entity.setCarLicenseId((long) 2);
+		entity.setIssuerId((long) 2);
+		entity.setTimestamp(new java.sql.Date(System.currentTimeMillis()));
+		userService.processAddNotification(entity);
 		return new RedirectView("/");
 	}
 
