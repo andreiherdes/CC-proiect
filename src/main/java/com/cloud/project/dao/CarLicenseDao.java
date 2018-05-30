@@ -7,16 +7,18 @@ import com.cloud.project.model.CarLicense;
 
 public interface CarLicenseDao {
 
-    CarLicense getById(Long id) throws SQLException;
-    
-    List<CarLicense> getAll(Long id) throws SQLException;
+	CarLicense getById(Long id) throws SQLException;
+
+	List<CarLicense> getAll(Long id) throws SQLException;
 
 	void persist(CarLicense entity) throws SQLException;
 
 	void deleteById(long id) throws SQLException;
-	
+
 	void deleteByLicenseNumberAndOwnerId(String licenseNumber, long ownerId) throws SQLException;
-	
+
+	CarLicense getByLicenseNumber(String licenseNumber) throws SQLException;
+
 	boolean isLicenseNumberValid(String license) throws SQLException;
-	
+
 }

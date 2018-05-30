@@ -126,4 +126,26 @@ public class CarLicenseDaoImpl implements CarLicenseDao {
 		conn.close();
 
 	}
+
+	@Override
+	public CarLicense getByLicenseNumber(String licenseNumber) throws SQLException {
+		conn = CloudSqlConnection.INSTANCE.getConnection();
+
+		PreparedStatement stmt = conn.prepareStatement(
+				"SELECT * FROM " + CarLicense.CAR_LICENSE_TABLE + " WHERE LOWER(" + CarLicense.FLD_LICENSE + ") = ?");
+		
+		String licenseNumberLower = licenseNumber.toLowerCase();
+		stmt.setString(1, licenseNumberLower);
+
+		ResultSet result = stmt.executeQuery();
+
+		CarLicense car = new CarLicense();
+
+		if (result.next()) {
+			DaoUtils.loadCar(result, car);
+		}
+		conn.close();
+
+		return car;
+	}
 }

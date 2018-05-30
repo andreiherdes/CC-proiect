@@ -60,18 +60,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void processAddNotification(Notification entity) throws SQLException, Exception {
+	public void processAddNotification(Notification entity, String license) throws SQLException, Exception {
 		Notification notification = notificationDao.getNotificationByIssuerIdUserIdCarId(entity.getIssuerId(),
 				entity.getUserId(), entity.getCarLicenseId());
+
+		CarLicense carLicense = null;
+
 		if (notification.getId() > 0) {
 			int tenMinutes = 10 * 60 * 1000;
 			long tenAgo = System.currentTimeMillis() - tenMinutes;
 			if (notification.getTimestamp().before(new java.sql.Date(tenAgo))) {
+				carLicense = carDao.getByLicenseNumber(license);
+				entity.setCarLicenseId(carLicense.getId());
 				notificationDao.persist(entity);
 			} else {
 				throw new Exception("Notification already issued!");
 			}
 		} else {
+			carLicense = carDao.getByLicenseNumber(license);
 			notificationDao.persist(entity);
 		}
 
