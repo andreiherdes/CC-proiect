@@ -71,8 +71,8 @@ public class NotificationDaoImpl implements NotificationDao {
 				+ Notification.FLD_FK_ISSUER_ID + " = ? AND " + Notification.FLD_FK_USER_ID + " = ? AND "
 				+ Notification.FLD_FK_CAR_ID + " = ?");
 		stmt.setLong(1, issuerId);
-		stmt.setLong(1, userId);
-		stmt.setLong(1, carId);
+		stmt.setLong(2, userId);
+		stmt.setLong(3, carId);
 
 		ResultSet result = stmt.executeQuery();
 		
