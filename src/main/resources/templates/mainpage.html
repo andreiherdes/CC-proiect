@@ -209,19 +209,26 @@
 					<h4 class="modal-title" id="myModalLabel4">Accident</h4>
 				</div>
 				<!-- modal -->
-				<div class="modal-body">
-					<form class="validate-formReg">
+				<div class="modal-body accident-modal">
+					<form th:action="@{/mainpage/sendAccidentNotif}"
+						th:object="${carLicense}" method="post">
+						<img class="imgAccident" src="images/accident.png" alt="Submit"
+							width="100" height="100">
 
-						<div class="wrap-input100 validate-inputReg"
-							data-validate="Password is required">
-							<input class="input100Reg" type="password"
-								name="register_repasswd"> <span class="focus-input100"></span>
-							<span class="label-input100">Retype password..</span>
+						<div class="uploadImg">
+							<input class="" type="file" name="pic" accept="image/*">
+						</div>
+
+						<div class="wrap-input100">
+							<input class="input100Reg" type="text" id="accidetNotification"
+								th:field="*{license}" name="NicenseNumber"> <span
+								class="focus-input100"></span> <span class="label-input100">License
+								Number</span>
 						</div>
 
 						<div class="container-login100-form-btn">
-							<input name="registerButton" class="login100-form-btn"
-								type="submit" value="Register" />
+							<input name="sendNotification" class="login100-form-btn"
+								type="submit" value="Send Notification" />
 						</div>
 					</form>
 				</div>
@@ -249,19 +256,26 @@
 					<h4 class="modal-title" id="myModalLabel5">Pick Up</h4>
 				</div>
 				<!-- modal -->
-				<div class="modal-body">
-					<form class="validate-formReg">
+				<div class="modal-body accident-modal">
+					<form th:action="@{/mainpage/sendPickupNotif}"
+						th:object="${carLicense}" method="post">
+						<img class="imgAccident" src="images/pick_up.png" alt="Submit"
+							width="100" height="100">
 
-						<div class="wrap-input100 validate-inputReg"
-							data-validate="Password is required">
-							<input class="input100Reg" type="password"
-								name="register_repasswd"> <span class="focus-input100"></span>
-							<span class="label-input100">Retype password..</span>
+						<div class="uploadImg">
+							<input class="" type="file" name="pic" accept="image/*">
+						</div>
+
+						<div class="wrap-input100">
+							<input class="input100Reg" type="text" id="PickUpNotification"
+								th:field="*{license}" name="LicenseNumber"> <span
+								class="focus-input100"></span> <span class="label-input100">License
+								Number</span>
 						</div>
 
 						<div class="container-login100-form-btn">
-							<input name="registerButton" class="login100-form-btn"
-								type="submit" value="Register" />
+							<input name="sendNotification" class="login100-form-btn"
+								type="submit" value="Send Notification" />
 						</div>
 					</form>
 				</div>
@@ -289,19 +303,26 @@
 					<h4 class="modal-title" id="myModalLabel6">Park</h4>
 				</div>
 				<!-- modal -->
-				<div class="modal-body">
-					<form class="validate-formReg">
+				<div class="modal-body accident-modal">
+					<form th:action="@{/mainpage/sendParkNotif}"
+						th:object="${carLicense}" method="post">
+						<img class="imgAccident" src="images/parking.png" alt="Submit"
+							width="100" height="100">
 
-						<div class="wrap-input100 validate-inputReg"
-							data-validate="Password is required">
-							<input class="input100Reg" type="password"
-								name="register_repasswd"> <span class="focus-input100"></span>
-							<span class="label-input100">Retype password..</span>
+						<div class="uploadImg">
+							<input class="" type="file" name="pic" accept="image/*">
+						</div>
+
+						<div class="wrap-input100">
+							<input class="input100Reg" type="text" id="ParkNotification"
+								th:field="*{license}" name="LicenseNumber"> <span
+								class="focus-input100"></span> <span class="label-input100">License
+								Number</span>
 						</div>
 
 						<div class="container-login100-form-btn">
-							<input name="registerButton" class="login100-form-btn"
-								type="submit" value="Register" />
+							<input name="sendNotification" class="login100-form-btn"
+								type="submit" value="Send Notification" />
 						</div>
 					</form>
 				</div>
@@ -369,19 +390,26 @@
 					<h4 class="modal-title" id="myModalLabel8">Thief</h4>
 				</div>
 				<!-- modal -->
-				<div class="modal-body">
-					<form class="validate-formReg">
+				<div class="modal-body accident-modal">
+					<form th:action="@{/mainpage/sendThiefNotif}"
+						th:object="${carLicense}" method="post">
+						<img class="imgAccident" src="images/thief.png" alt="Submit"
+							width="100" height="100">
 
-						<div class="wrap-input100 validate-inputReg"
-							data-validate="Password is required">
-							<input class="input100Reg" type="password"
-								name="register_repasswd"> <span class="focus-input100"></span>
-							<span class="label-input100">Retype password..</span>
+						<div class="uploadImg">
+							<input class="" type="file" name="pic" accept="image/*">
+						</div>
+
+						<div class="wrap-input100">
+							<input class="input100Reg" type="text" id="ThiefNotification"
+								th:field="*{license}" name="LicenseNumber"> <span
+								class="focus-input100"></span> <span class="label-input100">License
+								Number</span>
 						</div>
 
 						<div class="container-login100-form-btn">
-							<input name="registerButton" class="login100-form-btn"
-								type="submit" value="Register" />
+							<input name="sendNotification" class="login100-form-btn"
+								type="submit" value="Send Notification" />
 						</div>
 					</form>
 				</div>
@@ -409,19 +437,26 @@
 					<h4 class="modal-title" id="myModalLabel9">Wheel Block</h4>
 				</div>
 				<!-- modal -->
-				<div class="modal-body">
-					<form class="validate-formReg">
+				<div class="modal-body accident-modal">
+					<form th:action="@{/mainpage/sendWheelBlockNotif}"
+						th:object="${carLicense}" method="post">
+						<img class="imgAccident" src="images/wheel_block.png" alt="Submit"
+							width="100" height="100">
 
-						<div class="wrap-input100 validate-inputReg"
-							data-validate="Password is required">
-							<input class="input100Reg" type="password"
-								name="register_repasswd"> <span class="focus-input100"></span>
-							<span class="label-input100">Retype password..</span>
+						<div class="uploadImg">
+							<input class="" type="file" name="pic" accept="image/*">
+						</div>
+
+						<div class="wrap-input100">
+							<input class="input100Reg" type="text"
+								id="WheelBlockNotification" th:field="*{license}"
+								name="LicenseNumber"> <span class="focus-input100"></span>
+							<span class="label-input100">License Number</span>
 						</div>
 
 						<div class="container-login100-form-btn">
-							<input name="registerButton" class="login100-form-btn"
-								type="submit" value="Register" />
+							<input name="sendNotification" class="login100-form-btn"
+								type="submit" value="Send Notification" />
 						</div>
 					</form>
 				</div>
@@ -449,19 +484,26 @@
 					<h4 class="modal-title" id="myModalLabe21">Car Light</h4>
 				</div>
 				<!-- modal -->
-				<div class="modal-body">
-					<form class="validate-formReg">
+				<div class="modal-body accident-modal">
+					<form th:action="@{/mainpage/sendCarLightNotif}"
+						th:object="${carLicense}" method="post">
+						<img class="imgAccident" src="images/car_light.png" alt="Submit"
+							width="100" height="100">
 
-						<div class="wrap-input100 validate-inputReg"
-							data-validate="Password is required">
-							<input class="input100Reg" type="password"
-								name="register_repasswd"> <span class="focus-input100"></span>
-							<span class="label-input100">Retype password..</span>
+						<div class="uploadImg">
+							<input class="" type="file" name="pic" accept="image/*">
+						</div>
+
+						<div class="wrap-input100">
+							<input class="input100Reg" type="text" id="CarLightNotification"
+								th:field="*{license}" name="LicenseNumber"> <span
+								class="focus-input100"></span> <span class="label-input100">License
+								Number</span>
 						</div>
 
 						<div class="container-login100-form-btn">
-							<input name="registerButton" class="login100-form-btn"
-								type="submit" value="Register" />
+							<input name="sendNotification" class="login100-form-btn"
+								type="submit" value="Send Notification" />
 						</div>
 					</form>
 				</div>
@@ -610,18 +652,17 @@
 						alt="Submit" width="100" height="100" data-toggle="modal"
 						data-target="#modalPark"> <input class="b4 actions"
 						type="image" src="../images/info.png" alt="Submit" width="100"
-						height="100" data-toggle="modal" data-target="#modalInfo">
-					<input class="b5 actions" type="image" src="../images/thief.png"
+						height="100"> <input class="b5 actions" type="image"
+						src="../images/thief.png" alt="Submit" width="100" height="100"
+						data-toggle="modal" data-target="#modalThief"> <input
+						class="b6 actions" type="image" src="../images/wheel_block.png"
 						alt="Submit" width="100" height="100" data-toggle="modal"
-						data-target="#modalThief"> <input class="b6 actions"
-						type="image" src="../images/wheel_block.png" alt="Submit"
-						width="100" height="100" data-toggle="modal"
 						data-target="#modalWheelBlock"> <input class="b7 actions"
 						type="image" src="../images/car_light.png" alt="Submit"
 						width="100" height="100" data-toggle="modal"
 						data-target="#modalCarLight"> <input class="b8 actions"
 						type="image" src="../images/chat.png" alt="Submit" width="100"
-						height="100" data-toggle="modal" data-target="#modalChat">
+						height="100">
 				</div>
 			</div>
 		</div>

@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<String> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException {
+		System.out.println("test");
 		return userDao.getAllPhoneNumbersByLicenseNumber(licenseNumber);
 	}
 
