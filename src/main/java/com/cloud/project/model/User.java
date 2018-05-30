@@ -12,21 +12,24 @@ public class User {
 	public final static String FLD_FIRST_NAME = "FIRSTNAME";
 	public final static String FLD_LAST_NAME = "LASTNAME";
 	public final static String FLD_EMAIL = "EMAIL";
+	public final static String FLD_PHONE_NUMBER = "PHONENUMBER";
 
 	private Long id;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String email;
+	private String phoneNumber;
 	private List<CarLicense> cars;
 
-	public User(Long id, String password, String email, String firstName, String lastName) {
+	public User(Long id, String password, String email, String firstName, String lastName, String phoneNumber) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
 	}
 
 	public User() {
@@ -35,6 +38,7 @@ public class User {
 		this.email = "";
 		this.firstName = "";
 		this.lastName = "";
+		this.phoneNumber = "";
 		this.cars = new ArrayList<>();
 	}
 
@@ -85,11 +89,19 @@ public class User {
 	public void setCars(List<CarLicense> cars) {
 		this.cars = cars;
 	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", cars=" + cars + "]";
+		return "User [id=" + id + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", email=" + email + ", phoneNumber=" + phoneNumber + ", cars=" + cars + "]";
 	}
 
 }

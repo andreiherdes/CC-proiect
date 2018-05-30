@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.cloud.project.component.security.UserSession;
 import com.cloud.project.model.Login;
@@ -17,7 +19,7 @@ import com.cloud.project.model.User;
 import com.cloud.project.service.UserService;
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/")
 public class IndexController {
 
 	@Autowired
@@ -41,38 +43,82 @@ public class IndexController {
 		return "index";
 	}
 
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+//	public String loginSubmit(@ModelAttribute Login login, HttpServletRequest request) {
+//		try {
+//			User user = userService.processLogin(login.getEmail(), login.getPassword());
+//			if (user.getId() > 0) {
+//				getUserSession().setLoggedInUser(user);
+//				System.out.println("Logged in");
+//				return "mainpage";
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return "result";
+//	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginSubmit(@ModelAttribute Login login, HttpServletRequest request) {
+	public RedirectView loginSubmit(RedirectAttributes attributes, @ModelAttribute Login login,
+			HttpServletRequest request) {
 		try {
 			User user = userService.processLogin(login.getEmail(), login.getPassword());
 			if (user.getId() > 0) {
 				getUserSession().setLoggedInUser(user);
+				System.out.println(getUserSession().isUserLoggedIn());
 				System.out.println("Logged in");
-				return "mainpage";
+				// attributes.addAttribute(user.getFirstName());
+				return new RedirectView("mainpage");
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "result";
+		System.out.println("Login");
+		// attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
+		// attributes.addAttribute("attribute", "redirectWithRedirectView");
+		return new RedirectView("result");
 	}
 
+	// @RequestMapping(value = "/register", method = RequestMethod.POST)
+	// public String registerSubmit(@ModelAttribute Register register) {
+	// User user = new User();
+	//
+	// user.setEmail(register.getEmailReg());
+	// user.setFirstName(register.getFirstName());
+	// user.setLastName(register.getLastName());
+	// user.setPassword(register.getPasswordReg());
+	// user.setPhoneNumber(register.getPhoneNumberReg());
+	//
+	// try {
+	// userService.processRegister(user);
+	// } catch (SQLException e) {
+	// e.printStackTrace();
+	// }
+	// return "mainpage";
+	// }
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerSubmit(@ModelAttribute Register register) {
+	public RedirectView registerSubmit(RedirectAttributes attributes, @ModelAttribute Register register) {
 		User user = new User();
 
 		user.setEmail(register.getEmailReg());
 		user.setFirstName(register.getFirstName());
 		user.setLastName(register.getLastName());
 		user.setPassword(register.getPasswordReg());
+		user.setPhoneNumber(register.getPhoneNumberReg());
 
 		try {
 			userService.processRegister(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return "result";
+		// return "mainpage";
+		System.out.println("Register");
+		// attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
+		// attributes.addAttribute("attribute", "redirectWithRedirectView");
+		return new RedirectView("/");
 	}
 
 	public UserSession getUserSession() {
@@ -90,4 +136,9 @@ public class IndexController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
+
+	// @RequestMapping(value = "/register", method = RequestMethod.POST)
+	// public void initPage(@ModelAttribute User user) {
+	// System.out.println(user.getFirstName());
+	// }
 }

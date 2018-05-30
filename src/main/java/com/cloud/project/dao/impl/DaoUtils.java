@@ -16,6 +16,7 @@ public class DaoUtils {
 		user.setEmail(result.getString(User.FLD_EMAIL));
 		user.setFirstName(result.getString(User.FLD_FIRST_NAME));
 		user.setLastName(result.getString(User.FLD_LAST_NAME));
+		user.setPhoneNumber(result.getString(User.FLD_PHONE_NUMBER));
 		user.setCars(cars);
 
 	}

@@ -6,6 +6,7 @@ public class Register {
 	private String lastName;
 	private String birthDate;
 	private String emailReg;
+	private String phoneNumberReg;
 	private String passwordReg;
 
 	public String getFirstName() {
@@ -46,6 +47,14 @@ public class Register {
 
 	public void setPasswordReg(String passwordReg) {
 		this.passwordReg = passwordReg;
+	}
+
+	public String getPhoneNumberReg() {
+		return phoneNumberReg;
+	}
+
+	public void setPhoneNumberReg(String phoneNumberReg) {
+		this.phoneNumberReg = phoneNumberReg;
 	}
 
 }

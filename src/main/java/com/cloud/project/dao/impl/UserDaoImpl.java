@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
 
 	private Connection conn;
 	private CarLicenseDao carDao = new CarLicenseDaoImpl();
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -71,11 +71,13 @@ public class UserDaoImpl implements UserDao {
 		conn = CloudSqlConnection.INSTANCE.getConnection();
 
 		PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + User.USER_TABLE + "(" + User.FLD_PASSWORD + ","
-				+ User.FLD_EMAIL + "," + User.FLD_FIRST_NAME + "," + User.FLD_LAST_NAME + ") VALUES (?,?,?,?)");
+				+ User.FLD_EMAIL + "," + User.FLD_FIRST_NAME + "," + User.FLD_LAST_NAME + "," + User.FLD_PHONE_NUMBER
+				+ ") VALUES (?,?,?,?,?)");
 		stmt.setString(1, passwordEncoder.encode(entity.getPassword()));
 		stmt.setString(2, entity.getEmail());
 		stmt.setString(3, entity.getFirstName());
 		stmt.setString(4, entity.getLastName());
+		stmt.setString(5, entity.getPhoneNumber());
 
 		for (CarLicense car : entity.getCars()) {
 			carDao.persist(car);
@@ -127,10 +129,12 @@ public class UserDaoImpl implements UserDao {
 
 		ResultSet result = stmt.executeQuery();
 		User user = new User();
-		
+
 		if (result.next()) {
 			String hashedPassword = result.getString(User.FLD_PASSWORD);
-			if (passwordEncoder.matches(password, hashedPassword)); {
+			if (passwordEncoder.matches(password, hashedPassword))
+				;
+			{
 				List<CarLicense> cars = carDao.getAll(result.getLong(User.FLD_ID));
 				DaoUtils.loadUser(result, user, cars);
 			}

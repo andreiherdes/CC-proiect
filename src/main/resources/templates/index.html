@@ -51,7 +51,7 @@
 				<!-- modal -->
 				<div class="modal-body">
 					<form class="validate-formReg" action="#"
-						th:action="@{/index/register}" th:object="${register}"
+						th:action="@{/register}" th:object="${register}"
 						method="post">
 
 						<div class="wrap-input100">
@@ -77,6 +77,12 @@
 							data-validate="Valid email is required: ex@abc.xyz">
 							<input class="input100Reg" type="text" name="emailReg" th:field="*{emailReg}"> <span
 								class="focus-input100"></span> <span class="label-input100">Email</span>
+						</div>
+						
+						<div class="wrap-input100 validate-inputReg"
+							data-validate="Valid phone number is required: 07xx xxx xxx">
+							<input class="input100Reg" type="text" name="phoneNumberReg" th:field="*{phoneNumberReg}"> <span
+								class="focus-input100"></span> <span class="label-input100">Phone Number</span>
 						</div>
 
 
@@ -120,7 +126,7 @@
 			<div class="container-login100">
 				<div class="wrap-login100">
 					<div class="login100-form">
-						<form class="validate-form" th:action="@{/index/login}"
+						<form class="validate-form" th:action="@{/login}"
 							th:object="${login}" method="post">
 							<span class="login100-form-title p-b-43"> Login to
 								continue </span>
