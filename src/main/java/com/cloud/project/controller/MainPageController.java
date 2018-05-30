@@ -22,16 +22,16 @@ public class MainPageController {
 
 	@Autowired
 	private UserSession userSession;
-	
+
 	@Autowired
 	private CarLicenseService carLicenseService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String loadPage(Model model, HttpServletRequest request) {
-		model.addAttribute("sessionUserName", userSession.getLoggedInUser().getFirstName());	
+		model.addAttribute("sessionUserName", userSession.getLoggedInUser().getFirstName());
 		model.addAttribute("licensePlates", userSession.getLoggedInUser().getCars());
 		model.addAttribute("carLicense", new CarLicense());
-		
+
 		return "mainpage";
 	}
 
@@ -51,6 +51,13 @@ public class MainPageController {
 	public RedirectView deleteLicenseSubmit(@ModelAttribute CarLicense carLicense) {
 		System.out.println(carLicense.getLicense());
 		return new RedirectView("/mainpage");
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public RedirectView performLogout() {
+		userSession.setLoggedInUser(null);
+
+		return new RedirectView("/");
 	}
 
 	public UserSession getUserSession() {

@@ -58,8 +58,14 @@
 					<li><a href="#"><span
 							class="glyphicon glyphicon-user white"></span> <span
 							th:text="${sessionUserName}">My Profile</span></a></li>
-					<li><a href="index.html"><span
-							class="glyphicon glyphicon-log-in white"></span> Logout</a></li>
+					<li><a class="glyphicon glyphicon-log-in white"
+						href="javascript: document.logoutForm.submit()" role="menuitem">
+							Logout</a>
+						<form name="logoutForm" th:action="@{/mainpage/logout}"
+							method="post" th:hidden="true">
+							<input hidden="true" type="submit" value="Log out" />
+						</form></li>
+
 				</ul>
 			</div>
 		</div>
@@ -86,9 +92,10 @@
 						th:object="${carLicense}" method="post">
 						<div class="wrap-input100 validate-input"
 							data-validate="Valid license plate is required: IS82HOT">
-							<input class="input100" type="text" id="lincensePlatea" name="lincensePlatea"
-								th:field="*{license}"> <span class="focus-input100"></span>
-							<span class="label-input100">New License Plate</span>
+							<input class="input100" type="text" id="lincensePlatea"
+								name="lincensePlatea" th:field="*{license}"> <span
+								class="focus-input100"></span> <span class="label-input100">New
+								License Plate</span>
 						</div>
 
 						<div class="container-login100-form-btn">
