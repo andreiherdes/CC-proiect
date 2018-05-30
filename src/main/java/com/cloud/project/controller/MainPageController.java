@@ -23,6 +23,7 @@ import com.cloud.project.model.Notification;
 import com.cloud.project.model.User;
 import com.cloud.project.service.CarLicenseService;
 import com.cloud.project.service.UserService;
+import com.cloud.project.utils.Credentials;
 import com.cloud.project.utils.Messages;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.TwilioRestException;
@@ -32,9 +33,6 @@ import com.twilio.sdk.resource.instance.Message;
 @Controller
 @RequestMapping("/mainpage")
 public class MainPageController {
-
-	public static final String ACCOUNT_SID = "ACffb55af203515c6a399d9002d4c793f5";
-	public static final String AUTH_TOKEN = "1cfaa9ef61e0b95eacdc92e50cbc6f00";
 
 	@Autowired
 	private UserSession userSession;
@@ -108,8 +106,7 @@ public class MainPageController {
 	}
 
 	@RequestMapping(value = "/sendPickupNotif", method = RequestMethod.POST)
-	public RedirectView sendPickUpNotification(@ModelAttribute CarLicense carLicense)
-			throws Exception {
+	public RedirectView sendPickUpNotification(@ModelAttribute CarLicense carLicense) throws Exception {
 		List<User> affectedUsers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
 		User issuer = userSession.getLoggedInUser();
 		for (User user : affectedUsers) {
@@ -122,8 +119,7 @@ public class MainPageController {
 	}
 
 	@RequestMapping(value = "/sendParkNotif", method = RequestMethod.POST)
-	public RedirectView sendParkNotification(@ModelAttribute CarLicense carLicense)
-			throws Exception {
+	public RedirectView sendParkNotification(@ModelAttribute CarLicense carLicense) throws Exception {
 		List<User> affectedUsers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
 		User issuer = userSession.getLoggedInUser();
 		for (User user : affectedUsers) {
@@ -136,8 +132,7 @@ public class MainPageController {
 	}
 
 	@RequestMapping(value = "/sendThiefNotif", method = RequestMethod.POST)
-	public RedirectView sendThiefNotification(@ModelAttribute CarLicense carLicense)
-			throws Exception {
+	public RedirectView sendThiefNotification(@ModelAttribute CarLicense carLicense) throws Exception {
 		System.out.println(carLicense.getLicense());
 
 		List<User> affectedUsers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
@@ -152,8 +147,7 @@ public class MainPageController {
 	}
 
 	@RequestMapping(value = "/sendWheelBlockNotif", method = RequestMethod.POST)
-	public RedirectView sendWheelBlockNotification(@ModelAttribute CarLicense carLicense)
-			throws Exception {
+	public RedirectView sendWheelBlockNotification(@ModelAttribute CarLicense carLicense) throws Exception {
 		System.out.println(carLicense.getLicense());
 
 		List<User> affectedUsers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
@@ -168,8 +162,7 @@ public class MainPageController {
 	}
 
 	@RequestMapping(value = "/sendCarLightNotif", method = RequestMethod.POST)
-	public RedirectView sendCarLightNotification(@ModelAttribute CarLicense carLicense)
-			throws Exception {
+	public RedirectView sendCarLightNotification(@ModelAttribute CarLicense carLicense) throws Exception {
 		System.out.println(carLicense.getLicense());
 
 		List<User> affectedUsers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
@@ -184,7 +177,7 @@ public class MainPageController {
 	}
 
 	private void sendSms(String to, String smsText) throws TwilioRestException {
-		TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+		TwilioRestClient client = new TwilioRestClient(Credentials.ACCOUNT_SID, Credentials.AUTH_TOKEN);
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		// +40744887339
 		params.add(new BasicNameValuePair("To", to));

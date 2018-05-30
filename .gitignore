@@ -27,5 +27,5 @@ nbdist/
 ### Database credentials ###
 
 db_config.xml
-DbCredentials.java
+Credentials.java
 src/main/resources/application.properties

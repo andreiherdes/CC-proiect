@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.cloud.project.utils.DbCredentials;
+import com.cloud.project.utils.Credentials;
 
 public class CloudSqlConnection {
 
@@ -15,7 +15,7 @@ public class CloudSqlConnection {
 		sqlUrl = String.format(
 				"jdbc:mysql://google/%s?cloudSqlInstance=%s"
 						+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false",
-				"CLOUDCOMPUTING", DbCredentials.INSTANCE_NAME);
+				"CLOUDCOMPUTING", Credentials.INSTANCE_NAME);
 
 		/*
 		 * try { dbCredentials = new DatabaseCredentials(); } catch
@@ -25,7 +25,7 @@ public class CloudSqlConnection {
 	}
 
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(sqlUrl, DbCredentials.USERNAME, DbCredentials.PASSWORD);
+		return DriverManager.getConnection(sqlUrl, Credentials.USERNAME, Credentials.PASSWORD);
 	}
 
 }
