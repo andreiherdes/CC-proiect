@@ -19,4 +19,6 @@ public interface UserService {
 	void deleteById(long id) throws SQLException;
 
 	void processAddNotification(Notification entity) throws SQLException, Exception;
+	
+	List<String> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException;
 }
