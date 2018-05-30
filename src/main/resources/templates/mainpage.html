@@ -77,25 +77,66 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel2">ADD / EDIT</h4>
+					<h4 class="modal-title" id="myModalLabel2">ADD</h4>
 				</div>
 				<!-- modal -->
 				<div class="modal-body">
 					<h2>License Plates</h2>
-					<table class="table">
-						<tbody>
-							<tr th:each="prod : ${licensePlates}">
-								<td th:text="${prod.license}">John</td>
-								<td><div class="container-login100-form-btn-add-edit">
-										<form action="#" th:action="@{/test}" method="post">
-											<input name="registerButton"
-												class="login100-form-btn-add-edit" type="submit"
-												value="Delete" />
-										</form>
-									</div></td>
-							</tr>
-						</tbody>
-					</table>
+					<form class="validate-form" th:action="@{/mainpage/addNewLicense}"
+						th:object="${carLicense}" method="post">
+						<div class="wrap-input100 validate-input"
+							data-validate="Valid license plate is required: IS82HOT">
+							<input class="input100" type="text" name="lincensePlatea"
+								th:field="*{license}"> <span class="focus-input100"></span>
+							<span class="label-input100">New License Plate</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input class="login100-form-btn" type="submit"
+								name="addNewLicensePlate" value="Add" />
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<p>2018 Notify Me and individual contributions. Design and
+						technology with passion from CAB.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End Modal License Plate-->
+	
+	<!--Modal Delete License Plate-->
+	<div class="modal right fade" id="modalLicensePlatesDelete" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel2">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel2">ADD</h4>
+				</div>
+				<!-- modal -->
+				<div class="modal-body">
+					<h2>License Plates</h2>
+					<form class="validate-form" th:action="@{/mainpage/addNewLicense}"
+						th:object="${carLicense}" method="post">
+						<div class="wrap-input100 validate-input"
+							data-validate="Valid license plate is required: IS82HOT">
+							<input class="input100" type="text" name="lincensePlatea"
+								th:field="*{license}"> <span class="focus-input100"></span>
+							<span class="label-input100">New License Plate</span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<input class="login100-form-btn" type="submit"
+								name="addNewLicensePlate" value="Delete" />
+						</div>
+					</form>
 				</div>
 
 				<div class="modal-footer">
@@ -536,7 +577,8 @@
 						<table class="table">
 							<tbody>
 								<tr th:each="prod : ${licensePlates}">
-									<td th:text="${prod.license}">John</td>
+									<td th:text="${prod.license}" data-toggle="modal"
+										data-target="#modalLicensePlates">John</td>
 								</tr>
 							</tbody>
 						</table>
@@ -544,7 +586,7 @@
 						<div class="container-login100-form-btn-add-edit">
 							<input name="registerButton" class="login100-form-btn-add-edit"
 								data-toggle="modal" data-target="#modalLicensePlates"
-								type="submit" value="ADD / EDIT" />
+								type="submit" value="ADD" />
 						</div>
 					</div>
 				</div>
