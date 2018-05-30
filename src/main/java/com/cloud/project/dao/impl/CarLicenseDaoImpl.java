@@ -73,7 +73,7 @@ public class CarLicenseDaoImpl implements CarLicenseDao {
 		stmt.setString(1, entity.getLicense());
 		stmt.setLong(2, entity.getOwnerId());
 
-		stmt.executeQuery();
+		stmt.executeUpdate();
 		conn.close();
 	}
 

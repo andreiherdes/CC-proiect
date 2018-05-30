@@ -28,20 +28,10 @@ public class MainPageController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String loadPage(Model model, HttpServletRequest request) {
-		System.out.println(userSession.isUserLoggedIn());
-		System.out.println(userSession.getLoggedInUser().getFirstName());
-		model.addAttribute("sessionUserName", userSession.getLoggedInUser().getFirstName());
-		// System.out.println(userSession.getLoggedInUser().getCars());
-		for (int i = 0; i < userSession.getLoggedInUser().getCars().size(); i++) {
-			System.out.println(userSession.getLoggedInUser().getCars().get(i));
-		}
+		model.addAttribute("sessionUserName", userSession.getLoggedInUser().getFirstName());	
 		model.addAttribute("licensePlates", userSession.getLoggedInUser().getCars());
-
-		for (int i = 0; i < userSession.getLoggedInUser().getNotifications().size(); i++) {
-			System.out.println(userSession.getLoggedInUser().getNotifications().get(i));
-		}
 		model.addAttribute("carLicense", new CarLicense());
-//		model.addAttribute("carLicense2", new CarLicense());
+		
 		return "mainpage";
 	}
 
