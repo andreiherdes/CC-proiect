@@ -41,6 +41,7 @@ public class MainPageController {
 			System.out.println(userSession.getLoggedInUser().getNotifications().get(i));
 		}
 		model.addAttribute("carLicense", new CarLicense());
+//		model.addAttribute("carLicense2", new CarLicense());
 		return "mainpage";
 	}
 
@@ -52,7 +53,13 @@ public class MainPageController {
 		userSession.getLoggedInUser().getCars().add(carLicenseNew);// adauga doar in lista
 
 		carLicenseService.addCarLicense(carLicenseNew);
-		
+
+		return new RedirectView("/mainpage");
+	}
+
+	@RequestMapping(value = "/deleteLicense", method = RequestMethod.POST)
+	public RedirectView deleteLicenseSubmit(@ModelAttribute CarLicense carLicense) {
+		System.out.println(carLicense.getLicense());
 		return new RedirectView("/mainpage");
 	}
 
