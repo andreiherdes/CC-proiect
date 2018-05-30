@@ -72,12 +72,15 @@ public class UserServiceImpl implements UserService {
 			if (notification.getTimestamp().before(new java.sql.Date(tenAgo))) {
 				carLicense = carDao.getByLicenseNumber(license);
 				entity.setCarLicenseId(carLicense.getId());
+				entity.setTimestamp(new java.sql.Date(System.currentTimeMillis()));
 				notificationDao.persist(entity);
 			} else {
 				throw new Exception("Notification already issued!");
 			}
 		} else {
 			carLicense = carDao.getByLicenseNumber(license);
+			entity.setCarLicenseId(carLicense.getId());
+			entity.setTimestamp(new java.sql.Date(System.currentTimeMillis()));
 			notificationDao.persist(entity);
 		}
 

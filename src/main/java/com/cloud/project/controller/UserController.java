@@ -38,7 +38,6 @@ public class UserController {
 		return new RedirectView("/");
 	}
 
-
 	@RequestMapping(value = "/addNotification", method = RequestMethod.GET)
 	public RedirectView addNotifications() throws Exception {
 		Notification entity = new Notification();
@@ -47,7 +46,7 @@ public class UserController {
 		entity.setCarLicenseId((long) 2);
 		entity.setIssuerId((long) 2);
 		entity.setTimestamp(new java.sql.Date(System.currentTimeMillis()));
-		userService.processAddNotification(entity);
+		// userService.processAddNotification(entity);
 		return new RedirectView("/");
 	}
 
@@ -58,7 +57,7 @@ public class UserController {
 		entity.setCarLicenseId((long) 2);
 		entity.setIssuerId((long) 2);
 		entity.setTimestamp(new java.sql.Date(System.currentTimeMillis()));
-		userService.processAddNotification(entity);
+		// userService.processAddNotification(entity);
 		return new RedirectView("/");
 	}
 
