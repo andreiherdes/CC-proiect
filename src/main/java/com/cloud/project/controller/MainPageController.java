@@ -14,9 +14,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.cloud.project.component.security.UserSession;
 import com.cloud.project.model.CarLicense;
+import com.cloud.project.model.User;
 import com.cloud.project.service.CarLicenseService;
-import com.cloud.project.service.impl.UserServiceImpl;
-
+import com.cloud.project.service.UserService;
 import java.util.*;
 
 import com.twilio.sdk.*;
@@ -34,6 +34,12 @@ public class MainPageController {
 
 	@Autowired
 	private UserSession userSession;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private UserController userController;
 
 	@Autowired
 	private CarLicenseService carLicenseService;
@@ -84,11 +90,15 @@ public class MainPageController {
 			throws TwilioRestException, SQLException {
 		System.out.println(carLicense.getLicense());
 
-		List<String> phoneNumbers = new UserServiceImpl().getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
+		List<User> phoneNumbers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
 		for (int i = 0; i < phoneNumbers.size(); i++) {
-			System.out.println(phoneNumbers.get(i));
+			System.out.println(phoneNumbers.get(i).getEmail());
+			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
+			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Accident Notifiction",
+					"Your car has been involved in an accident resulting in damage to one part of the car.");
+			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Accident Notifiction"
+					+ "Your car has been involved in an accident resulting in damage to one part of the car.");
 		}
-		// sendSms();
 		return new RedirectView("/mainpage");
 	}
 
@@ -97,66 +107,86 @@ public class MainPageController {
 			throws TwilioRestException, SQLException {
 		System.out.println(carLicense.getLicense());
 
-		List<String> phoneNumbers = new UserServiceImpl().getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
+		List<User> phoneNumbers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
 		for (int i = 0; i < phoneNumbers.size(); i++) {
-			System.out.println(phoneNumbers.get(i));
+			System.out.println(phoneNumbers.get(i).getEmail());
+			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
+			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Pick Up Notifiction",
+					"Your car is about to be picked up because of parking in a forbidden area.");
+			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Pick Up Notifiction"
+					+ "Your car is about to be picked up because of parking in a forbidden area.");
 		}
-		// sendSms();
 		return new RedirectView("/mainpage");
 	}
-	
+
 	@RequestMapping(value = "/sendParkNotif", method = RequestMethod.POST)
 	public RedirectView sendParkNotification(@ModelAttribute CarLicense carLicense)
 			throws TwilioRestException, SQLException {
 		System.out.println(carLicense.getLicense());
 
-		List<String> phoneNumbers = new UserServiceImpl().getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
+		List<User> phoneNumbers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
 		for (int i = 0; i < phoneNumbers.size(); i++) {
-			System.out.println(phoneNumbers.get(i));
+			System.out.println(phoneNumbers.get(i).getEmail());
+			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
+			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Park Notifiction",
+					"You would be advised to return to your car as you parked in an area where you obstruct the traffic.");
+			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Park Notifiction"
+					+ "You would be advised to return to your car as you parked in an area where you obstruct the traffic.");
 		}
-		// sendSms();
 		return new RedirectView("/mainpage");
 	}
-	
+
 	@RequestMapping(value = "/sendThiefNotif", method = RequestMethod.POST)
 	public RedirectView sendThiefNotification(@ModelAttribute CarLicense carLicense)
 			throws TwilioRestException, SQLException {
 		System.out.println(carLicense.getLicense());
 
-		List<String> phoneNumbers = new UserServiceImpl().getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
+		List<User> phoneNumbers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
 		for (int i = 0; i < phoneNumbers.size(); i++) {
-			System.out.println(phoneNumbers.get(i));
+			System.out.println(phoneNumbers.get(i).getEmail());
+			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
+			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Burglary Notifiction",
+					"Your car was involved in an auto burglary. It has a broken window and it's quite messy inside. Please return to your car as soon as you can.");
+			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Burglary Notifiction"
+					+ "Your car was involved in an auto burglary. It has a broken window and it's quite messy inside. Please return to your car as soon as you can.");
 		}
-		// sendSms();
 		return new RedirectView("/mainpage");
 	}
-	
+
 	@RequestMapping(value = "/sendWheelBlockNotif", method = RequestMethod.POST)
 	public RedirectView sendWheelBlockNotification(@ModelAttribute CarLicense carLicense)
 			throws TwilioRestException, SQLException {
 		System.out.println(carLicense.getLicense());
 
-		List<String> phoneNumbers = new UserServiceImpl().getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
+		List<User> phoneNumbers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
 		for (int i = 0; i < phoneNumbers.size(); i++) {
-			System.out.println(phoneNumbers.get(i));
+			System.out.println(phoneNumbers.get(i).getEmail());
+			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
+			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Wheel Block Notifiction",
+					"The wheel of your car is about to get roots. Come back until it becomes a tree.");
+			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Wheel Block Notifiction"
+					+ "The wheel of your car is about to get roots. Come back until it becomes a tree.");
 		}
-		// sendSms();
 		return new RedirectView("/mainpage");
 	}
-	
+
 	@RequestMapping(value = "/sendCarLightNotif", method = RequestMethod.POST)
 	public RedirectView sendCarLightNotification(@ModelAttribute CarLicense carLicense)
 			throws TwilioRestException, SQLException {
 		System.out.println(carLicense.getLicense());
 
-		List<String> phoneNumbers = new UserServiceImpl().getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
+		List<User> phoneNumbers = userService.getAllPhoneNumbersByLicenseNumber(carLicense.getLicense());
 		for (int i = 0; i < phoneNumbers.size(); i++) {
-			System.out.println(phoneNumbers.get(i));
+			System.out.println(phoneNumbers.get(i).getEmail());
+			System.out.println("+4" + phoneNumbers.get(i).getPhoneNumber());
+			userController.sendEmail(phoneNumbers.get(i).getEmail(), "MyCarNotifications - Car Light Notifiction",
+					"You receive this notification because i want to alert you that you have left a light open at your car which is wasting uselessly.");
+			sendSms("+4" + phoneNumbers.get(i).getPhoneNumber(), "MyCarNotifications - Car Light Notifiction"
+					+ "You receive this notification because i want to alert you that you have left a light open at your car which is wasting uselessly.");
 		}
-		// sendSms();
 		return new RedirectView("/mainpage");
 	}
-	
+
 	public UserSession getUserSession() {
 		return userSession;
 	}
@@ -168,7 +198,7 @@ public class MainPageController {
 	public void sendSms(String to, String smsText) throws TwilioRestException {
 		TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-//		+40744887339
+		// +40744887339
 		params.add(new BasicNameValuePair("To", to));
 		params.add(new BasicNameValuePair("From", "+18722334233"));
 		params.add(new BasicNameValuePair("Body", smsText));
