@@ -179,11 +179,12 @@ ul.nav a:hover {
 	background: #333333;
 }
 
-.b1, .b5, .imgAccident {
+.b1, .b5, .imgAccident, .imgThief {
 	background-color: red;
 }
 
-.b2, .b3, .b4, .b6, .b7 {
+.b2, .b3, .b4, .b6, .b7, .imgPickUp, .imgParking, .imgWheel,
+	.imgCarLight {
 	background-color: #CDDC39;
 }
 
@@ -198,15 +199,16 @@ ul.nav a:hover {
 }
 
 .actions {
-    margin: 0 15px 0 0;
+	margin: 0 15px 0 0;
 }
 
 .accident-modal {
-    text-align: centerl
+	text-align: centerl
 }
 
-.imgAccident, .uploadImg {
-    display: block;
-    margin: auto;
-    margin-bottom: 15px;
+.imgAccident, .uploadImg, .imgThief, .imgPickUp, .imgParking, .imgWheel,
+	.imgCarLight {
+	display: block;
+	margin: auto;
+	margin-bottom: 15px;
 }
