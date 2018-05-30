@@ -28,3 +28,4 @@ nbdist/
 
 db_config.xml
 DbCredentials.java
+application.properties

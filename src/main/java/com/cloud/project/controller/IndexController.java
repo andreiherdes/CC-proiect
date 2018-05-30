@@ -59,10 +59,7 @@ public class IndexController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Login");
-		// attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
-		// attributes.addAttribute("attribute", "redirectWithRedirectView");
-		return new RedirectView("result");
+		return new RedirectView("/");
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -80,10 +77,6 @@ public class IndexController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// return "mainpage";
-		System.out.println("Register");
-		// attributes.addFlashAttribute("flashAttribute", "redirectWithRedirectView");
-		// attributes.addAttribute("attribute", "redirectWithRedirectView");
 		return new RedirectView("/");
 	}
 

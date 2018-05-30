@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.cloud.project.dao.NotificationDao;
 import com.cloud.project.database.CloudSqlConnection;
 import com.cloud.project.model.Notification;
 
+@Repository
 public class NotificationDaoImpl implements NotificationDao {
 
 	private Connection conn;

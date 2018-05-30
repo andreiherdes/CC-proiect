@@ -21,6 +21,6 @@ public interface UserDao {
 
 	User getByCredentials(String password, String email) throws SQLException;
 
-	List<String> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException;
+	List<User> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException;
 
 }

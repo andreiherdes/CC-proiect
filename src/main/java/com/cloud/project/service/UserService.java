@@ -20,5 +20,5 @@ public interface UserService {
 
 	void processAddNotification(Notification entity) throws SQLException, Exception;
 	
-	List<String> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException;
+	List<User> getAllPhoneNumbersByLicenseNumber(String licenseNumber) throws SQLException;
 }
