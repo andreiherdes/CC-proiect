@@ -21,6 +21,7 @@ public class User {
 	private String email;
 	private String phoneNumber;
 	private List<CarLicense> cars;
+	private List<Notification> notifications;
 
 	public User(Long id, String password, String email, String firstName, String lastName, String phoneNumber) {
 		super();
@@ -40,6 +41,7 @@ public class User {
 		this.lastName = "";
 		this.phoneNumber = "";
 		this.cars = new ArrayList<>();
+		this.setNotifications(new ArrayList<>());
 	}
 
 	public String getPassword() {
@@ -89,13 +91,21 @@ public class User {
 	public void setCars(List<CarLicense> cars) {
 		this.cars = cars;
 	}
-	
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
 	}
 
 	@Override

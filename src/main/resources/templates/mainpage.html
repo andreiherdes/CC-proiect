@@ -56,7 +56,8 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span
-							class="glyphicon glyphicon-user white"></span> My Profile</a></li>
+							class="glyphicon glyphicon-user white"></span> <span
+							th:text="${sessionUserName}">My Profile</span></a></li>
 					<li><a href="index.html"><span
 							class="glyphicon glyphicon-log-in white"></span> Logout</a></li>
 				</ul>
@@ -80,20 +81,21 @@
 				</div>
 				<!-- modal -->
 				<div class="modal-body">
-					<form class="validate-formReg">
-
-						<div class="wrap-input100 validate-inputReg"
-							data-validate="Password is required">
-							<input class="input100Reg" type="password"
-								name="register_repasswd"> <span class="focus-input100"></span>
-							<span class="label-input100">Retype password..</span>
-						</div>
-
-						<div class="container-login100-form-btn">
-							<input name="registerButton" class="login100-form-btn"
-								type="submit" value="Register" />
-						</div>
-					</form>
+					<h2>License Plates</h2>
+					<table class="table">
+						<tbody>
+							<tr th:each="prod : ${licensePlates}">
+								<td th:text="${prod.license}">John</td>
+								<td><div class="container-login100-form-btn-add-edit">
+										<form action="#" th:action="@{/test}" method="post">
+											<input name="registerButton"
+												class="login100-form-btn-add-edit" type="submit"
+												value="Delete" />
+										</form>
+									</div></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 
 				<div class="modal-footer">
@@ -533,20 +535,8 @@
 						<h2>License Plates</h2>
 						<table class="table">
 							<tbody>
-								<tr>
-									<td>John</td>
-								</tr>
-								<tr>
-									<td>Mary</td>
-								</tr>
-								<tr>
-									<td>July</td>
-								</tr>
-								<tr>
-									<td>July</td>
-								</tr>
-								<tr>
-									<td>July</td>
+								<tr th:each="prod : ${licensePlates}">
+									<td th:text="${prod.license}">John</td>
 								</tr>
 							</tbody>
 						</table>
@@ -575,10 +565,11 @@
 					<input class="b5 actions" type="image" src="../images/thief.png"
 						alt="Submit" width="100" height="100" data-toggle="modal"
 						data-target="#modalThief"> <input class="b6 actions"
-						type="image" src="../images/wheel_block.png" alt="Submit" width="100"
-						height="100" data-toggle="modal" data-target="#modalWheelBlock">
-					<input class="b7 actions" type="image" src="../images/car_light.png"
-						alt="Submit" width="100" height="100" data-toggle="modal"
+						type="image" src="../images/wheel_block.png" alt="Submit"
+						width="100" height="100" data-toggle="modal"
+						data-target="#modalWheelBlock"> <input class="b7 actions"
+						type="image" src="../images/car_light.png" alt="Submit"
+						width="100" height="100" data-toggle="modal"
 						data-target="#modalCarLight"> <input class="b8 actions"
 						type="image" src="../images/chat.png" alt="Submit" width="100"
 						height="100" data-toggle="modal" data-target="#modalChat">
@@ -595,5 +586,6 @@
 				contributions. Design and technology with passion from CAB.</p>
 		</div>
 	</div>
+	<script src="../assets/js/main.js"></script>
 </body>
 </html>

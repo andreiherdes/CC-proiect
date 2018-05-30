@@ -14,7 +14,7 @@
 			}
 		})
 	})
-	
+
 	$('.input100Reg').each(function() {
 		$(this).on('blur', function() {
 			if ($(this).val().trim() != "") {
@@ -77,9 +77,9 @@
 
 		$(thisAlert).removeClass('alert-validate');
 	}
-	
-//	------------------
-	
+
+	// ------------------
+
 	var input1 = $('.validate-inputReg .input100Reg');
 
 	$('.validate-formReg').on('submit', function() {

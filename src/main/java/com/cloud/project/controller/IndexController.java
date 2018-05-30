@@ -43,21 +43,22 @@ public class IndexController {
 		return "index";
 	}
 
-//	@RequestMapping(value = "/login", method = RequestMethod.POST)
-//	public String loginSubmit(@ModelAttribute Login login, HttpServletRequest request) {
-//		try {
-//			User user = userService.processLogin(login.getEmail(), login.getPassword());
-//			if (user.getId() > 0) {
-//				getUserSession().setLoggedInUser(user);
-//				System.out.println("Logged in");
-//				return "mainpage";
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return "result";
-//	}
+	// @RequestMapping(value = "/login", method = RequestMethod.POST)
+	// public String loginSubmit(@ModelAttribute Login login, HttpServletRequest
+	// request) {
+	// try {
+	// User user = userService.processLogin(login.getEmail(), login.getPassword());
+	// if (user.getId() > 0) {
+	// getUserSession().setLoggedInUser(user);
+	// System.out.println("Logged in");
+	// return "mainpage";
+	// }
+	//
+	// } catch (SQLException e) {
+	// e.printStackTrace();
+	// }
+	// return "result";
+	// }
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public RedirectView loginSubmit(RedirectAttributes attributes, @ModelAttribute Login login,
@@ -137,8 +138,4 @@ public class IndexController {
 		this.userService = userService;
 	}
 
-	// @RequestMapping(value = "/register", method = RequestMethod.POST)
-	// public void initPage(@ModelAttribute User user) {
-	// System.out.println(user.getFirstName());
-	// }
 }
