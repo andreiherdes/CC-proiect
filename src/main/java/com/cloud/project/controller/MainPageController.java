@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.cloud.project.component.security.UserSession;
-import com.cloud.project.dao.impl.CarLicenseDaoImpl;
 import com.cloud.project.model.CarLicense;
+import com.cloud.project.service.CarLicenseService;
 
 @Controller
 @RequestMapping("/mainpage")
@@ -22,9 +22,12 @@ public class MainPageController {
 
 	@Autowired
 	private UserSession userSession;
+	
+	@Autowired
+	private CarLicenseService carLicenseService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String loadIndex(Model model, HttpServletRequest request) {
+	public String loadPage(Model model, HttpServletRequest request) {
 		System.out.println(userSession.isUserLoggedIn());
 		System.out.println(userSession.getLoggedInUser().getFirstName());
 		model.addAttribute("sessionUserName", userSession.getLoggedInUser().getFirstName());
@@ -41,34 +44,15 @@ public class MainPageController {
 		return "mainpage";
 	}
 
-	// @RequestMapping(value = "/addNewLicense", method = RequestMethod.POST)
-	// public String addNewLicenseSubmit(@ModelAttribute CarLicense carLicense) {
-	//// model.addAttribute("carLicense", new CarLicense());
-	//// @ModelAttribute CarLicense carLicense
-	// System.out.println("Test");
-	//// System.out.println(carLicense.getLicense());
-	//// userSession.getLoggedInUser().getCars().add(new CarLicense());
-	//
-	// for (int i = 0; i < userSession.getLoggedInUser().getCars().size(); i++) {
-	// System.out.println(userSession.getLoggedInUser().getCars().get(i));
-	// }
-	// return "mainpage";
-	// }
-
 	@RequestMapping(value = "/addNewLicense", method = RequestMethod.POST)
-	public RedirectView addNewLicenseSubmit(@ModelAttribute CarLicense carLicense) {
+	public RedirectView addNewLicenseSubmit(@ModelAttribute CarLicense carLicense) throws SQLException {
 		CarLicense carLicenseNew = new CarLicense();
-//		int dim = userSession.getLoggedInUser().getCars().size();
-//		carLicenseNew.setId(userSession.getLoggedInUser().getCars().get(dim - 1).getId() + 1);
 		carLicenseNew.setLicense(carLicense.getLicense());
 		carLicenseNew.setOwnerId(userSession.getLoggedInUser().getId());
-		userSession.getLoggedInUser().getCars().add(carLicenseNew);//adauga doar in lista
-//		try {
-//			new CarLicenseDaoImpl().persist(carLicenseNew);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		userSession.getLoggedInUser().getCars().add(carLicenseNew);// adauga doar in lista
+
+		carLicenseService.addCarLicense(carLicenseNew);
+		
 		return new RedirectView("/mainpage");
 	}
 

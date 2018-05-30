@@ -43,23 +43,6 @@ public class IndexController {
 		return "index";
 	}
 
-	// @RequestMapping(value = "/login", method = RequestMethod.POST)
-	// public String loginSubmit(@ModelAttribute Login login, HttpServletRequest
-	// request) {
-	// try {
-	// User user = userService.processLogin(login.getEmail(), login.getPassword());
-	// if (user.getId() > 0) {
-	// getUserSession().setLoggedInUser(user);
-	// System.out.println("Logged in");
-	// return "mainpage";
-	// }
-	//
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// }
-	// return "result";
-	// }
-
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public RedirectView loginSubmit(RedirectAttributes attributes, @ModelAttribute Login login,
 			HttpServletRequest request) {
@@ -81,24 +64,6 @@ public class IndexController {
 		// attributes.addAttribute("attribute", "redirectWithRedirectView");
 		return new RedirectView("result");
 	}
-
-	// @RequestMapping(value = "/register", method = RequestMethod.POST)
-	// public String registerSubmit(@ModelAttribute Register register) {
-	// User user = new User();
-	//
-	// user.setEmail(register.getEmailReg());
-	// user.setFirstName(register.getFirstName());
-	// user.setLastName(register.getLastName());
-	// user.setPassword(register.getPasswordReg());
-	// user.setPhoneNumber(register.getPhoneNumberReg());
-	//
-	// try {
-	// userService.processRegister(user);
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// }
-	// return "mainpage";
-	// }
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public RedirectView registerSubmit(RedirectAttributes attributes, @ModelAttribute Register register) {
